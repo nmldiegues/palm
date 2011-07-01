@@ -1,0 +1,89 @@
+01 Jul 2011 16:15:33,866 INFO  ~ Starting /home/nmld/palm
+01 Jul 2011 16:15:34,703 WARN  ~ You're running Play! in DEV mode
+01 Jul 2011 16:15:34,902 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+01 Jul 2011 16:16:02,725 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0
+01 Jul 2011 16:16:04,390 INFO  ~ Application 'Portable Article Library Manager' is now started !
+01 Jul 2011 17:05:07,251 ERROR ~ 
+
+@6713egdhj
+Internal Server Error (500) for request GET /@tests/init
+
+JPA error
+A JPA error occurred (Unable to build EntityManagerFactory): mappedBy reference an unknown target entity property: models.bibliography.ArticleRecord.records in models.User.records
+
+play.exceptions.JPAException: Unable to build EntityManagerFactory
+	at play.db.jpa.JPAPlugin.onApplicationStart(JPAPlugin.java:232)
+	at play.plugins.PluginCollection.onApplicationStart(PluginCollection.java:407)
+	at play.Play.start(Play.java:459)
+	at play.Play.detectChanges(Play.java:569)
+	at play.Invoker$Invocation.init(Invoker.java:186)
+	at Invocation.HTTP Request(Play!)
+Caused by: org.hibernate.AnnotationException: mappedBy reference an unknown target entity property: models.bibliography.ArticleRecord.records in models.User.records
+	at org.hibernate.cfg.annotations.CollectionBinder.bindStarToManySecondPass(CollectionBinder.java:668)
+	at org.hibernate.cfg.annotations.CollectionBinder$1.secondPass(CollectionBinder.java:628)
+	at org.hibernate.cfg.CollectionSecondPass.doSecondPass(CollectionSecondPass.java:65)
+	at org.hibernate.cfg.Configuration.originalSecondPassCompile(Configuration.java:1686)
+	at org.hibernate.cfg.Configuration.secondPassCompile(Configuration.java:1393)
+	at org.hibernate.cfg.Configuration.buildMappings(Configuration.java:1345)
+	at org.hibernate.ejb.Ejb3Configuration.buildMappings(Ejb3Configuration.java:1477)
+	at org.hibernate.ejb.EventListenerConfigurator.configure(EventListenerConfigurator.java:193)
+	at org.hibernate.ejb.Ejb3Configuration.configure(Ejb3Configuration.java:1096)
+	at org.hibernate.ejb.Ejb3Configuration.buildEntityManagerFactory(Ejb3Configuration.java:900)
+	at play.db.jpa.JPAPlugin.onApplicationStart(JPAPlugin.java:230)
+	... 5 more
+01 Jul 2011 17:05:07,443 ERROR ~ 
+
+@6713egdhk
+Internal Server Error (500) for request GET /@tests?select=BasicTest.class
+
+JPA error
+A JPA error occurred (Unable to build EntityManagerFactory): mappedBy reference an unknown target entity property: models.bibliography.ArticleRecord.records in models.User.records
+
+play.exceptions.JPAException: Unable to build EntityManagerFactory
+	at play.db.jpa.JPAPlugin.onApplicationStart(JPAPlugin.java:232)
+	at play.plugins.PluginCollection.onApplicationStart(PluginCollection.java:407)
+	at play.Play.start(Play.java:459)
+	at play.Play.detectChanges(Play.java:569)
+	at play.Invoker$Invocation.init(Invoker.java:186)
+	at Invocation.HTTP Request(Play!)
+Caused by: org.hibernate.AnnotationException: mappedBy reference an unknown target entity property: models.bibliography.ArticleRecord.records in models.User.records
+	at org.hibernate.cfg.annotations.CollectionBinder.bindStarToManySecondPass(CollectionBinder.java:668)
+	at org.hibernate.cfg.annotations.CollectionBinder$1.secondPass(CollectionBinder.java:628)
+	at org.hibernate.cfg.CollectionSecondPass.doSecondPass(CollectionSecondPass.java:65)
+	at org.hibernate.cfg.Configuration.originalSecondPassCompile(Configuration.java:1686)
+	at org.hibernate.cfg.Configuration.secondPassCompile(Configuration.java:1393)
+	at org.hibernate.cfg.Configuration.buildMappings(Configuration.java:1345)
+	at org.hibernate.ejb.Ejb3Configuration.buildMappings(Ejb3Configuration.java:1477)
+	at org.hibernate.ejb.EventListenerConfigurator.configure(EventListenerConfigurator.java:193)
+	at org.hibernate.ejb.Ejb3Configuration.configure(Ejb3Configuration.java:1096)
+	at org.hibernate.ejb.Ejb3Configuration.buildEntityManagerFactory(Ejb3Configuration.java:900)
+	at play.db.jpa.JPAPlugin.onApplicationStart(JPAPlugin.java:230)
+	... 5 more
+01 Jul 2011 17:05:07,659 ERROR ~ 
+
+@6713egdhl
+Internal Server Error (500) for request GET /@tests/end?result=passed
+
+JPA error
+A JPA error occurred (Unable to build EntityManagerFactory): mappedBy reference an unknown target entity property: models.bibliography.ArticleRecord.records in models.User.records
+
+play.exceptions.JPAException: Unable to build EntityManagerFactory
+	at play.db.jpa.JPAPlugin.onApplicationStart(JPAPlugin.java:232)
+	at play.plugins.PluginCollection.onApplicationStart(PluginCollection.java:407)
+	at play.Play.start(Play.java:459)
+	at play.Play.detectChanges(Play.java:569)
+	at play.Invoker$Invocation.init(Invoker.java:186)
+	at Invocation.HTTP Request(Play!)
+Caused by: org.hibernate.AnnotationException: mappedBy reference an unknown target entity property: models.bibliography.ArticleRecord.records in models.User.records
+	at org.hibernate.cfg.annotations.CollectionBinder.bindStarToManySecondPass(CollectionBinder.java:668)
+	at org.hibernate.cfg.annotations.CollectionBinder$1.secondPass(CollectionBinder.java:628)
+	at org.hibernate.cfg.CollectionSecondPass.doSecondPass(CollectionSecondPass.java:65)
+	at org.hibernate.cfg.Configuration.originalSecondPassCompile(Configuration.java:1686)
+	at org.hibernate.cfg.Configuration.secondPassCompile(Configuration.java:1393)
+	at org.hibernate.cfg.Configuration.buildMappings(Configuration.java:1345)
+	at org.hibernate.ejb.Ejb3Configuration.buildMappings(Ejb3Configuration.java:1477)
+	at org.hibernate.ejb.EventListenerConfigurator.configure(EventListenerConfigurator.java:193)
+	at org.hibernate.ejb.Ejb3Configuration.configure(Ejb3Configuration.java:1096)
+	at org.hibernate.ejb.Ejb3Configuration.buildEntityManagerFactory(Ejb3Configuration.java:900)
+	at play.db.jpa.JPAPlugin.onApplicationStart(JPAPlugin.java:230)
+	... 5 more
