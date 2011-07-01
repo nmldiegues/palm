@@ -96,6 +96,46 @@ public class BasicTest extends UnitTest {
 		assertEquals(0, Document.count());
 	}
 
+	@Test
+	public void fullTest() {
+		Fixtures.load("data.yml");
+
+		// Count things
+		assertEquals(2, User.count());
+		assertEquals(3, ArticleRecord.count());
+		assertEquals(3, Document.count());
+
+		// Try to connect as users
+		assertNotNull(User.connect("bob@gmail.com", "secret"));
+		assertNotNull(User.connect("jeff@gmail.com", "secret"));
+		assertNull(User.connect("jeff@gmail.com", "badpassword"));
+		assertNull(User.connect("tom@gmail.com", "secret"));
+
+		// Find all bob's article records
+		List<ArticleRecord> bobRecords = ArticleRecord.find("author.email",
+				"bob@gmail.com").fetch();
+		assertEquals(2, bobRecords.size());
+
+		// Find all documents related to bob's article records
+		List<Document> bobDocuments = Document.find("record.author.email",
+				"bob@gmail.com").fetch();
+		assertEquals(3, bobDocuments.size());
+
+		// Find the most recent article record
+		ArticleRecord latestRecord = ArticleRecord.find(
+				"order by creationDate desc").first();
+		assertNotNull(latestRecord);
+		assertEquals("About the model layer", latestRecord.name);
+
+		// Check that this post has two comments
+		assertEquals(2, latestRecord.documents.size());
+
+		// Post a new comment
+		latestRecord.addDocument("Other doc", "Huge unwordly contents");
+		assertEquals(3, latestRecord.documents.size());
+		assertEquals(4, Document.count());
+	}
+
 	@Before
 	public void setup() {
 		Fixtures.deleteDatabase();
