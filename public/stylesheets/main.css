@@ -76,7 +76,7 @@ body {
 }
 
 #title h1 {
-    font-size: 64px;
+    font-size: 54px;
     margin: 0;
 }
 
@@ -163,7 +163,7 @@ body {
     padding-left: 10px;
 }
 
-.older-articleRecords .articleRecords-name a {
+.older-articleRecords .articleRecord-name a {
     padding: 0;
     color: #131921;
     font-size: 20px;
