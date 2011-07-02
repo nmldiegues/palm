@@ -33,9 +33,16 @@ public class ArticleRecord extends Model {
 	}
 
 	public ArticleRecord addDocument(String identification, String content) {
-		Document newDocument = new Document(identification, content, this)
-				.save();
+		Document newDocument = new Document(identification, content, this).save();
 		this.documents.add(newDocument);
 		return this;
+	}
+
+	public ArticleRecord previous() {
+		return ArticleRecord.find("creationDate < ? order by creationDate desc", creationDate).first();
+	}
+
+	public ArticleRecord next() {
+		return ArticleRecord.find("creationDate > ? order by creationDate asc", creationDate).first();
 	}
 }

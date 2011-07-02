@@ -5,6 +5,10 @@
 # Home page
 GET     /                                       Application.index
 
+GET     /articles/{id}                          Application.show
+
+POST    /articles/{recordId}/documents          Application.submitDocument
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
