@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<testsuite failures="0" time="0.599" errors="0" skipped="0" tests="5" name="BasicTest">
-  <testcase classname="BasicTest" name="createAndRetrieveUser" time="0.004">
+<testsuite failures="0" time="0.498" errors="0" skipped="0" tests="6" name="BasicTest">
+  <testcase classname="BasicTest" name="createAndRetrieveUser" time="0.016">
       </testcase>
-  <testcase classname="BasicTest" name="tryConnectAsUser" time="0.007">
+  <testcase classname="BasicTest" name="tryConnectAsUser" time="0.032">
       </testcase>
-  <testcase classname="BasicTest" name="createRecord" time="0.007">
+  <testcase classname="BasicTest" name="createRecord" time="0.017">
       </testcase>
-  <testcase classname="BasicTest" name="useTheDocumentsRelation" time="0.019">
+  <testcase classname="BasicTest" name="useTheDocumentsRelation" time="0.026">
       </testcase>
-  <testcase classname="BasicTest" name="fullTest" time="0.562">
+  <testcase classname="BasicTest" name="fullTest" time="0.322">
+      </testcase>
+  <testcase classname="BasicTest" name="testTags" time="0.085">
       </testcase>
 </testsuite>

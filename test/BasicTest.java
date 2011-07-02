@@ -1,8 +1,10 @@
 import java.util.List;
+import java.util.Map;
 
 import models.User;
 import models.bibliography.ArticleRecord;
 import models.bibliography.Document;
+import models.bibliography.Tag;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,8 +50,7 @@ public class BasicTest extends UnitTest {
 		assertEquals(1, ArticleRecord.count());
 
 		// Retrieve all article records created by bob
-		List<ArticleRecord> bobRecords = ArticleRecord.find("byAuthor", bob)
-				.fetch();
+		List<ArticleRecord> bobRecords = ArticleRecord.find("byAuthor", bob).fetch();
 
 		// Tests
 		assertEquals(1, bobRecords.size());
@@ -66,8 +67,7 @@ public class BasicTest extends UnitTest {
 		User bob = new User("bob@gmail.com", "secret", "Bob", "Spark").save();
 
 		// Create a new article record
-		ArticleRecord bobRecord = new ArticleRecord("My Article Record", bob)
-				.save();
+		ArticleRecord bobRecord = new ArticleRecord("My Article Record", bob).save();
 
 		// Add two documents
 		bobRecord.addDocument("Some Paper Conference", "Huge contents");
@@ -84,8 +84,7 @@ public class BasicTest extends UnitTest {
 
 		// Navigate to documents
 		assertEquals(2, bobRecord.documents.size());
-		assertEquals("Some Paper Conference",
-				bobRecord.documents.get(0).identification);
+		assertEquals("Some Paper Conference", bobRecord.documents.get(0).identification);
 
 		// Delete the article record
 		bobRecord.delete();
@@ -112,18 +111,15 @@ public class BasicTest extends UnitTest {
 		assertNull(User.connect("tom@gmail.com", "secret"));
 
 		// Find all bob's article records
-		List<ArticleRecord> bobRecords = ArticleRecord.find("author.email",
-				"bob@gmail.com").fetch();
+		List<ArticleRecord> bobRecords = ArticleRecord.find("author.email", "bob@gmail.com").fetch();
 		assertEquals(2, bobRecords.size());
 
 		// Find all documents related to bob's article records
-		List<Document> bobDocuments = Document.find("record.author.email",
-				"bob@gmail.com").fetch();
+		List<Document> bobDocuments = Document.find("record.author.email", "bob@gmail.com").fetch();
 		assertEquals(3, bobDocuments.size());
 
 		// Find the most recent article record
-		ArticleRecord latestRecord = ArticleRecord.find(
-				"order by creationDate desc").first();
+		ArticleRecord latestRecord = ArticleRecord.find("order by creationDate desc").first();
 		assertNotNull(latestRecord);
 		assertEquals("About the model layer", latestRecord.name);
 
@@ -134,6 +130,38 @@ public class BasicTest extends UnitTest {
 		latestRecord.addDocument("Other doc", "Huge unwordly contents");
 		assertEquals(3, latestRecord.documents.size());
 		assertEquals(4, Document.count());
+	}
+
+	@Test
+	public void testTags() {
+		// Create a new user and save it
+		User bob = new User("bob@gmail.com", "secret", "Bob", "Spark").save();
+
+		// Create a new post
+		ArticleRecord bobRecord = new ArticleRecord("My first post", bob).save();
+		ArticleRecord anotherBobRecord = new ArticleRecord("Hop", bob).save();
+
+		// Well
+		assertEquals(0, ArticleRecord.findTaggedWith("Red").size());
+
+		// Tag it now
+		bobRecord.tagItWith("Red").tagItWith("Blue").save();
+		anotherBobRecord.tagItWith("Red").tagItWith("Green").save();
+
+		// Check
+		assertEquals(2, ArticleRecord.findTaggedWith("Red").size());
+		assertEquals(1, ArticleRecord.findTaggedWith("Blue").size());
+		assertEquals(1, ArticleRecord.findTaggedWith("Green").size());
+
+		// Multiple tags
+		assertEquals(1, ArticleRecord.findTaggedWith("Red", "Blue").size());
+		assertEquals(1, ArticleRecord.findTaggedWith("Red", "Green").size());
+		assertEquals(0, ArticleRecord.findTaggedWith("Red", "Green", "Blue").size());
+		assertEquals(0, ArticleRecord.findTaggedWith("Green", "Blue").size());
+
+		// Test tag cloud
+		List<Map> cloud = Tag.getCloud();
+		assertEquals("[{tag=Red, pound=2}, {tag=Blue, pound=1}, {tag=Green, pound=1}]", cloud.toString());
 	}
 
 	@Before
