@@ -1,10 +1,24 @@
 package controllers;
 
+import java.util.List;
+
+import models.bibliography.ArticleRecord;
+import play.Play;
+import play.mvc.Before;
 import play.mvc.Controller;
 
 public class Application extends Controller {
 
-	public static void index() {
-		render();
+	@Before
+	static void addDefaults() {
+		renderArgs.put("siteTitle", Play.configuration.getProperty("site.title"));
+		renderArgs.put("siteBaseline", Play.configuration.getProperty("site.baseline"));
 	}
+
+	public static void index() {
+		ArticleRecord frontRecord = ArticleRecord.find("order by creationDate desc").first();
+		List<ArticleRecord> olderRecords = ArticleRecord.find("order by creationDate desc").from(1).fetch(10);
+		render(frontRecord, olderRecords);
+	}
+
 }

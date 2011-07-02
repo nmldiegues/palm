@@ -1,4 +1,26 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
-
-<h1>A blog will be there</h1>
+ 
+#{if frontRecord}
+    
+    #{display articleRecord:frontRecord, as:'home' /}
+    
+    #{if olderRecords.size()}
+    
+        <div class="older-records">
+            <h3>Older records <span class="from">from this blog</span></h3>
+        
+            #{list items:olderRecords, as:'oldRecord'}
+                #{display articleRecord:oldRecord, as:'teaser' /}
+            #{/list}
+        </div>
+        
+    #{/if}
+    
+#{/if}
+ 
+#{else}
+    <div class="empty">
+        There is currently nothing to read here.
+    </div>
+#{/else}
