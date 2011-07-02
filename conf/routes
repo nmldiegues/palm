@@ -5,15 +5,22 @@
 # Home page
 GET     /                                       Application.index
 
-GET     /articles/{id}                          Application.show
+GET     /articles/{<[0-9]+>id}                  Application.show
 
 POST    /articles/{recordId}/documents          Application.submitDocument
+
+GET     /captcha                                Application.captcha
+
+GET     /articles/{tag}		                    Application.listTagged
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
+
+# Import CRUD routes
+*      /admin              module:crud
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}

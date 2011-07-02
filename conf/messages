@@ -1,3 +1,16 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+name=Name
+identification=Identification
+title=Title
+content=Content
+creationDate=Created at
+author=Author
+articleRecord=Related record
+tags=Tags set
+name=Common name
+email=Email
+password=Password
+firstName=First Name
+lastName=Last Name

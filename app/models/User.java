@@ -8,14 +8,23 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import models.bibliography.ArticleRecord;
+import play.data.validation.Email;
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
 public class User extends Model {
 
+	@Email
+	@Required
 	public String email;
+
+	@Required
 	public String password;
+
+	@Required
 	public String firstName;
+
 	public String lastName;
 
 	@OneToMany(mappedBy = "author", cascade = CascadeType.DETACH)
@@ -40,4 +49,8 @@ public class User extends Model {
 		return this;
 	}
 
+	@Override
+	public String toString() {
+		return firstName + " " + lastName;
+	}
 }
