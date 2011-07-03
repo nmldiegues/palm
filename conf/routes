@@ -9,6 +9,14 @@ GET     /articles/{<[0-9]+>id}                  Application.show
 
 POST    /articles/{recordId}/documents          Application.submitDocument
 
+GET     /admin/myArticleRecords/{id}           	Admin.form
+
+GET     /admin/new                          	Admin.form
+
+POST    /admin/myPosts/{id}                  	Admin.save
+
+POST    /admin/new                          	Admin.save
+
 GET     /captcha                                Application.captcha
 
 GET     /articles/{tag}		                    Application.listTagged

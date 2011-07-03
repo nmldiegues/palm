@@ -14,3 +14,6 @@ email=Email
 password=Password
 firstName=First Name
 lastName=Last Name
+secure.username=Your email:
+secure.password=Your password:
+secure.signin=Log in now
