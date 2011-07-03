@@ -1,8 +1,10 @@
 package controllers;
 
+import java.io.File;
 import java.util.List;
 
 import models.bibliography.ArticleRecord;
+import models.bibliography.Document;
 import play.Play;
 import play.cache.Cache;
 import play.data.validation.Required;
@@ -33,7 +35,7 @@ public class Application extends Controller {
 
 	public static void submitDocument(Long recordId,
 			@Required(message = "Identification is required") String identification,
-			@Required(message = "Content is required") String content,
+			@Required(message = "Content is required") File content,
 			@Required(message = "Please type the code") String code, String randomID) {
 
 		ArticleRecord articleRecord = ArticleRecord.findById(recordId);
@@ -43,6 +45,7 @@ public class Application extends Controller {
 		if (validation.hasErrors()) {
 			render("Application/show.html", articleRecord, randomID);
 		}
+
 		articleRecord.addDocument(identification, content);
 		flash.success("Your document '%s' has been uploaded.", identification);
 		show(recordId);
@@ -58,5 +61,12 @@ public class Application extends Controller {
 	public static void listTagged(String tag) {
 		List<ArticleRecord> articleRecords = ArticleRecord.findTaggedWith(tag);
 		render(tag, articleRecords);
+	}
+
+	public static void downloadDocument(Long id) {
+		final Document document = Document.findById(id);
+		notFoundIfNull(document);
+		response.setContentTypeIfNotSet(document.content.type());
+		renderBinary(document.content.get(), document.identification);
 	}
 }

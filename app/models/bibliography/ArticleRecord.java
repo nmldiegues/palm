@@ -1,5 +1,7 @@
 package models.bibliography;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,9 +46,12 @@ public class ArticleRecord extends Model {
 		this.tags = new TreeSet<Tag>();
 	}
 
-	public ArticleRecord addDocument(String identification, String content) {
-		Document newDocument = new Document(identification, content, this).save();
-		this.documents.add(newDocument);
+	public ArticleRecord addDocument(String identification, File content) {
+		try {
+			this.documents.add(Document.createDocument(identification, content, this, Document.DocumentType.ARTICLE));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		return this;
 	}
 
