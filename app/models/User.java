@@ -2,9 +2,11 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import models.bibliography.ArticleRecord;
@@ -29,6 +31,9 @@ public class User extends Model {
 
 	@OneToMany(mappedBy = "author", cascade = CascadeType.DETACH)
 	public List<ArticleRecord> records;
+
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	public Set<Role> roles;
 
 	public User(String email, String password, String firstName, String lastName) {
 		super();
