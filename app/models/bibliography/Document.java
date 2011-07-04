@@ -16,20 +16,6 @@ import play.libs.MimeTypes;
 @Entity
 public class Document extends Model {
 
-	public enum DocumentType {
-		ARTICLE("Article"), NOTES("Notes"), OTHER("Other");
-
-		private final String type;
-
-		DocumentType(String type) {
-			this.type = type;
-		}
-
-		public String type() {
-			return this.type;
-		}
-	}
-
 	@Required
 	public String identification;
 
@@ -44,6 +30,7 @@ public class Document extends Model {
 	public ArticleRecord record;
 
 	@Required
+	@ManyToOne
 	public DocumentType type;
 
 	public Document() {
