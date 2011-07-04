@@ -48,7 +48,8 @@ public class ArticleRecord extends Model {
 
 	public ArticleRecord addDocument(String identification, File content) {
 		try {
-			this.documents.add(Document.createDocument(identification, content, this, Document.DocumentType.ARTICLE));
+			this.documents.add(Document.createDocument(identification, content, this,
+					DocumentType.getOrCreate(DocumentType.ARTICLE_TYPE)));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -77,6 +78,15 @@ public class ArticleRecord extends Model {
 		return ArticleRecord
 				.find("select distinct p.id from ArticleRecord p join p.tags as t where t.name in (:tags) group by p.id having count(t.id) = :size")
 				.bind("tags", tags).bind("size", tags.length).fetch();
+	}
+
+	public boolean hasArticle() {
+		for (Document document : documents) {
+			if (document.type.type() == DocumentType.NOTES_TYPE) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
