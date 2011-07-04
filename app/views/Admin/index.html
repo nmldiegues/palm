@@ -1,0 +1,13 @@
+#{extends 'admin.html' /}
+ 
+<h3>Welcome ${user}, <span>you have ${articleRecords.size() ?: 'no'} ${articleRecords.pluralize('article record', 'article records')} so far</span></h3>
+ 
+#{list items:articleRecords, as:'articleRecord'}
+    <p class="articleRecord ${articleRecord_parity}">
+        <a href="@{Admin.form(articleRecord.id)}">${articleRecord.name}</a>
+    </p>
+#{/list}
+ 
+<p id="newArticleRecord" >
+    <a href="@{form()}"><span>+</span> new article record</a>
+</p>

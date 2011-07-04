@@ -1,0 +1,22 @@
+#{extends 'main.html' /}
+#{set title:'Articles tagged with ' + tag /}
+ 
+*{********* Title ********* }*
+ 
+#{if articleRecords.size() > 1}
+   <h3>There are ${articleRecords.size()} articles tagged '${tag}'</h3>  
+#{/if} 
+#{elseif articleRecords}
+    <h3>There is 1 article tagged '${tag}'</h3>  
+#{/elseif}
+#{else}
+    <h3>No articles tagged '${tag}'</h3>
+#{/else}
+ 
+*{********* Articles list *********}*
+ 
+<div class="older-articleRecords">    
+    #{list items:articleRecords, as:'articleRecord'}
+        #{display articleRecord:articleRecord, as:'teaser' /}
+    #{/list}
+</div> 
