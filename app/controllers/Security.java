@@ -28,4 +28,7 @@ public class Security extends Secure.Security {
 		return false;
 	}
 
+	public static User fetchConnected() {
+		return User.find("byEmail", connected()).<User> first();
+	}
 }

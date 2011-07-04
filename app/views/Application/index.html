@@ -1,6 +1,14 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
  
+#{if flash.success}
+    <p class="success">${flash.success}</p>
+#{/if}
+
+<a href="@{Application.newArticleRecord()}">
+    Add an Article Record
+</a>
+ 
 #{if frontRecord}
     
     #{display articleRecord:frontRecord, as:'home' /}
