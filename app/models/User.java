@@ -11,8 +11,10 @@ import javax.persistence.OneToMany;
 
 import models.bibliography.ArticleRecord;
 import play.data.validation.Email;
+import play.data.validation.Password;
 import play.data.validation.Required;
 import play.db.jpa.Model;
+import play.libs.Crypto;
 
 @Entity
 public class User extends Model {
@@ -21,8 +23,9 @@ public class User extends Model {
 	@Required
 	public String email;
 
+	@Password
 	@Required
-	public String password;
+	public String password; // it is hashed
 
 	@Required
 	public String firstName;
@@ -38,14 +41,14 @@ public class User extends Model {
 	public User(String email, String password, String firstName, String lastName) {
 		super();
 		this.email = email;
-		this.password = password;
+		this.password = Crypto.passwordHash(password);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.records = new ArrayList<ArticleRecord>();
 	}
 
 	public static User connect(String email, String password) {
-		return find("byEmailAndPassword", email, password).first();
+		return find("byEmailAndPassword", email, Crypto.passwordHash(password)).first();
 	}
 
 	public User addRecord(String articleName) {

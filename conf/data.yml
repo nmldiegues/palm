@@ -15,7 +15,7 @@ Submitter(submitter):
 
 User(bob):
     email:          bob@gmail.com
-    password:       secret
+    password:       Qdgjq5YO9JlzzmKDd9e/XQ==
     firstName:      Bob
     lastName:       Spark
     roles:
@@ -24,7 +24,7 @@ User(bob):
 
 User(jeff):
     email:          jeff@gmail.com
-    password:       secret
+    password:       Qdgjq5YO9JlzzmKDd9e/XQ==
     firstName:      Jeff
     lastName:       Marcus
     roles:
