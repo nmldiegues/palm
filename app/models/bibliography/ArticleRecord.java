@@ -25,6 +25,9 @@ public class ArticleRecord extends Model {
 	public String name;
 
 	@Required
+	public int year;
+
+	@Required
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	public List<Author> authors;
 
@@ -41,9 +44,10 @@ public class ArticleRecord extends Model {
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	public Set<Tag> tags;
 
-	public ArticleRecord(String name, User submitter, List<Author> authors) {
+	public ArticleRecord(String name, Integer year, User submitter, List<Author> authors) {
 		super();
 		this.name = name;
+		this.year = year;
 		this.submitter = submitter;
 		this.authors = authors;
 		this.creationDate = new Date();
@@ -51,15 +55,13 @@ public class ArticleRecord extends Model {
 		this.tags = new TreeSet<Tag>();
 	}
 
-	@Deprecated
-	public ArticleRecord(String name, User submitter) {
-		this(name, submitter, new ArrayList<Author>());
+	public ArticleRecord(String name, Integer year, User submitter) {
+		this(name, year, submitter, new ArrayList<Author>());
 	}
 
-	public ArticleRecord addDocument(String identification, File content) {
+	public ArticleRecord addDocument(String identification, DocumentType type, File content) {
 		try {
-			this.documents.add(Document.createDocument(identification, content, this,
-					DocumentType.getOrCreate(DocumentType.ARTICLE_TYPE)));
+			this.documents.add(Document.createDocument(identification, content, this, type));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			// FIXME failure message
@@ -93,11 +95,16 @@ public class ArticleRecord extends Model {
 
 	public boolean hasArticle() {
 		for (Document document : documents) {
-			if (document.type.type() == DocumentType.NOTES_TYPE) {
+			if (document.type.type().equals(DocumentType.NOTES_TYPE)) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public ArticleRecord addAuthorship(String author) {
+		authors.add(Author.findOrCreateByNames(author));
+		return this;
 	}
 
 	@Override

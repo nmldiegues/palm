@@ -1,6 +1,10 @@
 package models.bibliography;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -8,24 +12,30 @@ import play.db.jpa.Model;
 @Entity
 public class DocumentType extends Model {
 
-	public static final int ARTICLE_TYPE = 0;
+	@Transient
+	public static transient final String ARTICLE_TYPE = "Article";
 
-	public static final int NOTES_TYPE = 1;
+	@Transient
+	public static transient final String NOTES_TYPE = "Notes";
 
-	public static final int OTHER_TYPE = 2;
+	@Transient
+	public static transient final String OTHER_TYPE = "Other";
+
+	@Transient
+	public static transient final List<String> TYPES = Arrays.asList(ARTICLE_TYPE, NOTES_TYPE, OTHER_TYPE);
 
 	@Required
-	public int type;
+	public String type;
 
-	private DocumentType(int type) {
+	private DocumentType(String type) {
 		this.type = type;
 	}
 
-	public int type() {
+	public String type() {
 		return this.type;
 	}
 
-	public static DocumentType getOrCreate(int type) {
+	public static DocumentType getOrCreate(String type) {
 		DocumentType documentType = DocumentType.find("byType", type).first();
 		if (documentType == null) {
 			documentType = new DocumentType(type);

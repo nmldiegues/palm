@@ -36,18 +36,26 @@ public class Admin extends Controller {
 		render();
 	}
 
-	public static void save(Long id, String name, String tags) {
+	public static void save(Long id, String name, Integer year, String authors, String tags) {
 		ArticleRecord articleRecord;
 		if (id == null) {
 			// Create ArticleRecord
 			User submitter = User.find("byEmail", Security.connected()).first();
-			articleRecord = new ArticleRecord(name, submitter);
+			articleRecord = new ArticleRecord(name, year, submitter);
 		} else {
 			// Retrieve the ArticleRecord
 			articleRecord = ArticleRecord.findById(id);
 			// Edit
 			articleRecord.name = name;
+			articleRecord.year = year;
+			articleRecord.authors.clear();
 			articleRecord.tags.clear();
+		}
+		// Set authors list
+		for (String author : authors.split("\\s+")) {
+			if (author.trim().length() > 0) {
+				articleRecord.addAuthorship(author);
+			}
 		}
 		// Set tags list
 		for (String tag : tags.split("\\s+")) {

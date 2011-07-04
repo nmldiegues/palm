@@ -22,6 +22,22 @@
             value="${articleRecord?.name}" class="${field.errorClass}" />
         #{/field}
     </p>
+
+    <p>
+        #{field 'year'}
+        <label>Publication year:</label>
+        <input type="text" name="${field.name}" 
+            value="${articleRecord?.year}" class="${field.errorClass}" />
+        #{/field}
+    </p>
+ 
+    <p>
+        #{field 'authors'}
+        <label>Enter some authors:</label>
+        <input type="text" size="50" 
+            name="${field.name}" value="${articleRecord?.authors?.join(' ')}" />
+        #{/field}
+    </p>
  
     <p>
         #{field 'tags'}

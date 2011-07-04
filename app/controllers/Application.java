@@ -7,6 +7,7 @@ import java.util.List;
 import models.bibliography.ArticleRecord;
 import models.bibliography.Author;
 import models.bibliography.Document;
+import models.bibliography.DocumentType;
 import play.Play;
 import play.cache.Cache;
 import play.data.validation.Required;
@@ -31,13 +32,20 @@ public class Application extends Controller {
 
 	public static void show(Long id) {
 		ArticleRecord articleRecord = ArticleRecord.findById(id);
+		render(articleRecord);
+	}
+
+	public static void newDocument(Long id) {
+		ArticleRecord articleRecord = ArticleRecord.findById(id);
 		String randomID = Codec.UUID();
-		render(articleRecord, randomID);
+		List<String> possibleTypes = DocumentType.TYPES;
+		render("Application/upload.html", articleRecord, randomID, possibleTypes);
 	}
 
 	public static void submitDocument(Long recordId,
 			@Required(message = "Identification is required") String identification,
 			@Required(message = "Content is required") File content,
+			@Required(message = "Type is required") String type,
 			@Required(message = "Please type the code") String code, String randomID) {
 
 		ArticleRecord articleRecord = ArticleRecord.findById(recordId);
@@ -48,7 +56,7 @@ public class Application extends Controller {
 			render("Application/show.html", articleRecord, randomID);
 		}
 
-		articleRecord.addDocument(identification, content);
+		articleRecord.addDocument(identification, DocumentType.getOrCreate(type), content);
 		flash.success("Your document '%s' has been uploaded.", identification);
 		show(recordId);
 	}
@@ -76,7 +84,9 @@ public class Application extends Controller {
 		render("Application/submit.html");
 	}
 
+	// FIXME add tags
 	public static void addArticleRecord(@Required(message = "Name is required") String name,
+			@Required(message = "Publication year is required") Integer year,
 			@Required(message = "Authors are required") String authors) {
 
 		if (validation.hasErrors()) {
@@ -90,8 +100,10 @@ public class Application extends Controller {
 			}
 		}
 
-		ArticleRecord articleRecord = new ArticleRecord(name, Security.fetchConnected(), articleAuthors);
+		ArticleRecord articleRecord = new ArticleRecord(name, year, Security.fetchConnected(), articleAuthors);
 		articleRecord.save();
+		articleRecord.submitter.records.add(articleRecord);
+		articleRecord.submitter.save();
 
 		flash.success("Your Article Record '%s' has been added.", name);
 		// FIXME jump to the article record

@@ -12,6 +12,9 @@
 	       		${author.name}
 	        #{/list}
         </span>
+        <span class="articleRecord-submitter">
+        	published in ${_articleRecord.year}
+        </span>
         #{if _as != 'full'}
             <span class="articleRecord-documents">
                 &nbsp;|&nbsp; ${_articleRecord.documents.size() ?: 'no'} 
