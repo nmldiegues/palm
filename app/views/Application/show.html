@@ -24,50 +24,6 @@
  
 #{display articleRecord:articleRecord, as:'full' /}
 
-<h3>Submit a comment</h3>
- 
-<form action="@{Application.submitDocument(articleRecord.id)}" method="POST" enctype="multipart/form-data">
-	#{ifErrors}
-	    <p class="error">
-	        ${errors[0]}
-	    </p>
-	#{/ifErrors}
-
-    <p>
-        <label for="identification">Document identification: </label>
-        <input type="text" name="identification" id="identification" value="${params.identification}" />
-    </p>
-    <p>
-        <label for="content">Document content: </label>
-        <input type="file" name="content" id="content" />
-    </p>
-    <p>
-		<label for="code">Please type the code below: </label>
-		<img src="@{Application.captcha(randomID)}" />
-		<br />
-		<input type="text" name="code" id="code" size="18" value="" />
-		<input type="hidden" name="randomID" value="${randomID}" />
-	</p>
-    <p>
-        <input type="submit" value="Submit your document" />
-    </p>
-</form>
-
-<script type="text/javascript" charset="utf-8">
-    $(function() {
-        // Expose the form 
-        $('form').click(function() { 
-            $('form').expose({api: true}).load(); 
-        }); 
-        
-        // If there is an error, focus to form
-        if($('form .error').size()) {
-        	$('html,body').animate({
-        		scrollTop: $('form').offset().top
-        		},0);
-        	
-            $('form').expose({api: true, loadSpeed: 0}).load(); 
-            $('form input').get(0).focus();
-        }
-    });
-</script>
+<a href="@{Application.newDocument(articleRecord.id)}">
+    Upload a new Document
+</a>

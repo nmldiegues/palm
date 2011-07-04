@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -30,7 +31,7 @@ public class Document extends Model {
 	public ArticleRecord record;
 
 	@Required
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	public DocumentType type;
 
 	public Document() {
@@ -46,6 +47,7 @@ public class Document extends Model {
 		document.record = record;
 		document.creationDate = new Date();
 		document.type = type;
+		type.save();
 		return document.save();
 	}
 

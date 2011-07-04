@@ -51,12 +51,6 @@ public class User extends Model {
 		return find("byEmailAndPassword", email, Crypto.passwordHash(password)).first();
 	}
 
-	public User addRecord(String articleName) {
-		ArticleRecord newRecord = new ArticleRecord(articleName, this).save();
-		this.records.add(newRecord);
-		return this;
-	}
-
 	@Override
 	public String toString() {
 		return firstName + " " + lastName;
