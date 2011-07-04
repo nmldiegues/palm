@@ -1,0 +1,38 @@
+#{extends 'admin.html' /}
+ 
+#{ifnot articleRecord?.id}
+    <h3>Submit, <span>a new Article Record</span></h3>
+#{/ifnot}
+#{else}
+    <h3>Edit, <span>this Article Record</span></h3>
+#{/else}
+ 
+#{form @save(articleRecord?.id)}
+ 
+    #{ifErrors}
+        <p class="error">
+            Please correct these errors.
+        </p>
+    #{/ifErrors}
+     
+    <p>
+        #{field 'name'}
+        <label>Article Record name:</label>
+        <input type="text" name="${field.name}" 
+            value="${articleRecord?.name}" class="${field.errorClass}" />
+        #{/field}
+    </p>
+ 
+    <p>
+        #{field 'tags'}
+        <label>Enter some tags:</label>
+        <input type="text" size="50" 
+            name="${field.name}" value="${articleRecord?.tags?.join(' ')}" />
+        #{/field}
+    </p>
+    
+    <p>
+        <input type="submit" value="Submit this Article Record" />
+    </p>
+    
+#{/form}

@@ -1,0 +1,65 @@
+*{ Display an Article Record in one of these modes: 'full', 'home' or 'teaser' }*
+ 
+<div class="articleRecord">
+    <h2 class="articleRecord-name">
+    	<a href="@{Application.show(_articleRecord.id)}">${_articleRecord.name}</a>
+    </h2>
+    <div class="articleRecord-metadata">
+        <span class="articleRecord-author">by ${_articleRecord.author.firstName}</span>,
+        <span class="articleRecord-creationDate">${_articleRecord.creationDate.format('dd MMM yy')}</span>
+        #{if _as != 'full'}
+            <span class="articleRecord-documents">
+                &nbsp;|&nbsp; ${_articleRecord.documents.size() ?: 'no'} 
+                document${_articleRecord.documents.size().pluralize()}
+                #{if _articleRecord.documents}
+                    , latest by ${_articleRecord.documents[0].identification}
+                #{/if}
+                &nbsp;|&nbsp; ${_articleRecord.hasArticle() ? 'ok' : 'missing'}
+            </span>
+        #{/if}
+		#{elseif _articleRecord.tags}
+		    <span class="articleRecord-tags">
+		        - Tagged 
+		        #{list items:_articleRecord.tags, as:'tag'}
+		            <a href="@{Application.listTagged(tag.name)}">${tag}</a>${tag_isLast ? '' : ', '}
+		        #{/list}
+		    </span>
+		#{/elseif}		
+    </div>
+    #{if _as != 'teaser'}
+        <div class="articleRecord-content">
+            <div class="about">Detail: </div>
+            There are no contents!
+        </div>
+    #{/if}
+</div>
+ 
+#{if _as == 'full'}
+    <div class="documents">
+        <h3>
+            ${_articleRecord.documents.size() ?: 'no'} 
+            document${_articleRecord.documents.size().pluralize()}
+        </h3>
+        
+        #{list items:_articleRecord.documents, as:'document'}
+            <div class="document">
+                <div class="document-metadata">
+                	<span class="document-identification">
+                		${document.identification}
+                	</span>
+                	<span class="document-identification">
+                		${document.type}
+                	</span>
+                    <span class="document-creationDate">
+                        ${document.creationDate.format('dd MMM yy')}
+                    </span>
+                </div>
+                <div class="document-content">
+                    <div class="about">Detail: </div>
+                    <a href="@{downloadDocument(document.id)}">Content</a>
+                </div>
+            </div>
+        #{/list}
+        
+    </div>
+#{/if}
