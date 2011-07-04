@@ -20,7 +20,7 @@ public class Admin extends Controller {
 	}
 
 	public static void index() {
-		List<ArticleRecord> articleRecords = ArticleRecord.find("author.email", Security.connected()).fetch();
+		List<ArticleRecord> articleRecords = ArticleRecord.find("submitter.email", Security.connected()).fetch();
 		render(articleRecords);
 	}
 
@@ -40,8 +40,8 @@ public class Admin extends Controller {
 		ArticleRecord articleRecord;
 		if (id == null) {
 			// Create ArticleRecord
-			User author = User.find("byEmail", Security.connected()).first();
-			articleRecord = new ArticleRecord(name, author);
+			User submitter = User.find("byEmail", Security.connected()).first();
+			articleRecord = new ArticleRecord(name, submitter);
 		} else {
 			// Retrieve the ArticleRecord
 			articleRecord = ArticleRecord.findById(id);

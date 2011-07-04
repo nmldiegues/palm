@@ -1,9 +1,11 @@
 package controllers;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import models.bibliography.ArticleRecord;
+import models.bibliography.Author;
 import models.bibliography.Document;
 import play.Play;
 import play.cache.Cache;
@@ -68,5 +70,31 @@ public class Application extends Controller {
 		notFoundIfNull(document);
 		response.setContentTypeIfNotSet(document.content.type());
 		renderBinary(document.content.get(), document.identification);
+	}
+
+	public static void newArticleRecord() {
+		render("Application/submit.html");
+	}
+
+	public static void addArticleRecord(@Required(message = "Name is required") String name,
+			@Required(message = "Authors are required") String authors) {
+
+		if (validation.hasErrors()) {
+			render("Application/show.html");
+		}
+
+		List<Author> articleAuthors = new ArrayList<Author>();
+		for (String author : authors.split("\\s+")) {
+			if (author.trim().length() > 0) {
+				articleAuthors.add(Author.findOrCreateByNames(author));
+			}
+		}
+
+		ArticleRecord articleRecord = new ArticleRecord(name, Security.fetchConnected(), articleAuthors);
+		articleRecord.save();
+
+		flash.success("Your Article Record '%s' has been added.", name);
+		// FIXME jump to the article record
+		index();
 	}
 }

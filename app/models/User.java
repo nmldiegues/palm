@@ -32,7 +32,7 @@ public class User extends Model {
 
 	public String lastName;
 
-	@OneToMany(mappedBy = "author", cascade = CascadeType.DETACH)
+	@OneToMany(mappedBy = "submitter", cascade = CascadeType.DETACH)
 	public List<ArticleRecord> records;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)

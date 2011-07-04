@@ -25,11 +25,15 @@ public class ArticleRecord extends Model {
 	public String name;
 
 	@Required
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	public List<Author> authors;
+
+	@Required
 	public Date creationDate;
 
 	@Required
 	@ManyToOne
-	public User author;
+	public User submitter;
 
 	@OneToMany(mappedBy = "record", cascade = CascadeType.ALL)
 	public List<Document> documents;
@@ -37,13 +41,19 @@ public class ArticleRecord extends Model {
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	public Set<Tag> tags;
 
-	public ArticleRecord(String name, User author) {
+	public ArticleRecord(String name, User submitter, List<Author> authors) {
 		super();
 		this.name = name;
-		this.author = author;
+		this.submitter = submitter;
+		this.authors = authors;
 		this.creationDate = new Date();
 		this.documents = new ArrayList<Document>();
 		this.tags = new TreeSet<Tag>();
+	}
+
+	@Deprecated
+	public ArticleRecord(String name, User submitter) {
+		this(name, submitter, new ArrayList<Author>());
 	}
 
 	public ArticleRecord addDocument(String identification, File content) {
@@ -52,6 +62,7 @@ public class ArticleRecord extends Model {
 					DocumentType.getOrCreate(DocumentType.ARTICLE_TYPE)));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			// FIXME failure message
 		}
 		return this;
 	}
