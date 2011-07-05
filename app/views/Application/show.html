@@ -24,6 +24,6 @@
  
 #{display articleRecord:articleRecord, as:'full' /}
 
-<a href="@{Application.newDocument(articleRecord.id)}">
-    Upload a new Document
-</a>
+<div id="newDocument">
+    <a href="@{Application.newDocument(articleRecord.id)}"><span>+</span> new document</a>
+</div>
