@@ -54,4 +54,9 @@ public class DocumentType extends Model {
 	public boolean isOtherType() {
 		return this.type == OTHER_TYPE;
 	}
+
+	@Override
+	public String toString() {
+		return type;
+	}
 }

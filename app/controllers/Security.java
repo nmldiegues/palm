@@ -14,7 +14,7 @@ public class Security extends Secure.Security {
 	}
 
 	static void onAuthenticated() {
-		Admin.index();
+		Application.index();
 	}
 
 	static boolean check(String profile) {

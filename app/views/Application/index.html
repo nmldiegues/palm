@@ -5,9 +5,10 @@
     <p class="success">${flash.success}</p>
 #{/if}
 
-<a href="@{Application.newArticleRecord()}">
-    Add an Article Record
-</a>
+<div id="newArticleRecord" style="border-top: 0px">
+    <a href="@{Application.newArticleRecord()}"><span>+</span> new article record</a>
+</div>
+<p style="border-bottom: 1px dotted #e5dabf" />
  
 #{if frontRecord}
     
