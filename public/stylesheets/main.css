@@ -104,12 +104,24 @@ body {
 
 /** ArticleRecord **/
 
+.articleRecord {
+    width: 800px;
+    padding: 0 30px;
+    margin: auto;
+    background: #FFFFFF;
+    background: -webkit-gradient(linear, left top, left 30%, from(#314660), to(#364B66));
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    padding: 20px;
+    border: 3px solid #869AB1;
+}
+
 .articleRecord .articleRecord-name {
     margin: 0;
 }
 
 .articleRecord .articleRecord-name a {
-    font-size: 36px;
+    font-size: 24px;
     color: #F5C2CC;
     text-decoration: none;
 }
@@ -208,8 +220,8 @@ h3 span {
     font-size: 50%;
     display: block;
     float: left;
-    width: 80px;
-    text-align: right;
+    width: 550px;
+    text-align: left;
 }
 
 .document .document-identification {
@@ -225,10 +237,14 @@ h3 span {
     font-size: 80%;
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-left: 100px;
+    margin-left: 10px;
     padding: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
+}
+
+.document .document-content a {
+	float: right;	
 }
 
 .document .about {
