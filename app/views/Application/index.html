@@ -10,24 +10,12 @@
 </div>
 <p style="border-bottom: 1px dotted #e5dabf" />
  
-#{if frontRecord}
-    
-    #{display articleRecord:frontRecord, as:'home' /}
-    
-    #{if olderRecords.size()}
-    
-        <div class="older-articleRecords">
-            <h3>Older records <span class="from">from this blog</span></h3>
-        
-            #{list items:olderRecords, as:'oldRecord'}
-                #{display articleRecord:oldRecord, as:'teaser' /}
-            #{/list}
-        </div>
-        
-    #{/if}
-    
+#{if records.size()}
+	#{list items:records, as:'record'}
+	    #{display articleRecord:record, as:'home' /}
+	#{/list}
 #{/if}
- 
+    
 #{else}
     <div class="empty">
         There is currently nothing to read here.

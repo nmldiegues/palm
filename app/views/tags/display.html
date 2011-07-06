@@ -1,48 +1,69 @@
 *{ Display an Article Record in one of these modes: 'full', 'home' or 'teaser' }*
  
+#{if _as != 'full'}
 <div class="articleRecord">
     <h2 class="articleRecord-name">
     	<a href="@{Application.show(_articleRecord.id)}">${_articleRecord.name}</a>
     </h2>
     <div class="articleRecord-metadata">
-        <span class="articleRecord-submitter">by ${_articleRecord.submitter.firstName}</span>,
-        <span class="articleRecord-creationDate">${_articleRecord.creationDate.format('dd MMM yy')}</span>
-        <span class="articleRecord-submitter">authors 
+        <span class="articleRecord-submitter">
+        	${_articleRecord.year} - 
+        </span>
+        <span class="articleRecord-submitter"> 
 	        #{list items:_articleRecord.authors, as:'author'}
-	       		${author.name}
+	       		${author.name}, 
 	        #{/list}
         </span>
-        <span class="articleRecord-submitter">
-        	published in ${_articleRecord.year}
+        <span class="articleRecord-documents">
+            &nbsp;|&nbsp; ${_articleRecord.documents.size() ?: 'no'} 
+            document${_articleRecord.documents.size().pluralize()}
+            &nbsp;|&nbsp; ${_articleRecord.hasArticle() ? 'ok' : 'missing'}
         </span>
-        #{if _as != 'full'}
-            <span class="articleRecord-documents">
-                &nbsp;|&nbsp; ${_articleRecord.documents.size() ?: 'no'} 
-                document${_articleRecord.documents.size().pluralize()}
-                #{if _articleRecord.documents}
-                    , latest by ${_articleRecord.documents[0].identification}
-                #{/if}
-                &nbsp;|&nbsp; ${_articleRecord.hasArticle() ? 'ok' : 'missing'}
-            </span>
-        #{/if}
-		#{elseif _articleRecord.tags}
+		#{if _articleRecord.tags}
 		    <span class="articleRecord-tags">
 		        - Tagged 
 		        #{list items:_articleRecord.tags, as:'tag'}
 		            <a href="@{Application.listTagged(tag.name)}">${tag}</a>${tag_isLast ? '' : ', '}
 		        #{/list}
 		    </span>
-		#{/elseif}		
+		#{/if}		
     </div>
-    #{if _as != 'teaser'}
-        <div class="articleRecord-content">
-            <div class="about">Detail: </div>
-            There are no contents!
-        </div>
-    #{/if}
 </div>
- 
-#{if _as == 'full'}
+#{/if}
+
+#{else}
+	<div class="articleRecord">
+	    <h2 class="articleRecord-name">
+	    	<a href="@{Application.show(_articleRecord.id)}">${_articleRecord.name}</a>
+	    </h2>
+	    <div class="articleRecord-metadata">
+	        <span class="articleRecord-submitter">
+	        	${_articleRecord.year} - 
+	        </span>
+	        <span class="articleRecord-submitter"> 
+		        #{list items:_articleRecord.authors, as:'author'}
+		       		${author.name}, 
+		        #{/list}
+	        </span>
+	        <span class="articleRecord-documents">
+	            &nbsp;|&nbsp; ${_articleRecord.documents.size() ?: 'no'} 
+	            document${_articleRecord.documents.size().pluralize()}
+	            &nbsp;|&nbsp; ${_articleRecord.hasArticle() ? 'ok' : 'missing'}
+	        </span>
+			#{if _articleRecord.tags}
+			    <span class="articleRecord-tags">
+			        - Tagged 
+			        #{list items:_articleRecord.tags, as:'tag'}
+			            <a href="@{Application.listTagged(tag.name)}">${tag}</a>${tag_isLast ? '' : ', '}
+			        #{/list}
+			    </span>
+			#{/if}		
+	    	<p>
+		    	<span class="articleRecord-submitter">by ${_articleRecord.submitter.firstName}</span>,
+				<span class="articleRecord-creationDate">${_articleRecord.creationDate.format('dd MMM yy')}</span>
+			</p>
+	    </div>
+	</div>
     <div class="documents">
         <h3>
             ${_articleRecord.documents.size() ?: 'no'} 
@@ -51,23 +72,17 @@
         
         #{list items:_articleRecord.documents, as:'document'}
             <div class="document">
-                <div class="document-metadata">
+                <div class="document-content">
                 	<span class="document-identification">
-                		${document.identification}
-                	</span>
-                	<span class="document-identification">
-                		${document.type}
+                		${document.type}: ${document.identification}
                 	</span>
                     <span class="document-creationDate">
                         ${document.creationDate.format('dd MMM yy')}
                     </span>
-                </div>
-                <div class="document-content">
-                    <div class="about">Detail: </div>
-                    <a href="@{downloadDocument(document.id)}">Content</a>
+                    <a href="@{downloadDocument(document.id)}">Download</a>
                 </div>
             </div>
         #{/list}
         
     </div>
-#{/if}
+#{/else}

@@ -27,9 +27,8 @@ public class Application extends Controller {
 	}
 
 	public static void index() {
-		ArticleRecord frontRecord = ArticleRecord.find("order by creationDate desc").first();
-		List<ArticleRecord> olderRecords = ArticleRecord.find("order by creationDate desc").from(1).fetch(10);
-		render(frontRecord, olderRecords);
+		List<ArticleRecord> records = ArticleRecord.find("order by creationDate desc").fetch(10);
+		render(records);
 	}
 
 	public static void show(Long id) {
