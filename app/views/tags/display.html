@@ -1,5 +1,21 @@
 *{ Display an Article Record in one of these modes: 'full', 'home' or 'teaser' }*
- 
+
+<script type="text/javascript">  
+	$(document).ready(function() {
+    	$("#citations-to-expand").slideUp();
+	});
+	$(function(){  
+	    $("#expand-citations").click(function(event) {  
+	    	event.preventDefault();  
+	    	$("#citations-to-expand").slideToggle();
+	    });  
+		$("#citations-to-expand a").click(function(event) {  
+	    	event.preventDefault();  
+	    	$("#citations-to-expand").slideUp();  
+		});  
+	});  
+</script>
+
 #{if _as != 'full'}
 <div class="articleRecord">
     <h2 class="articleRecord-name">
@@ -84,5 +100,29 @@
             </div>
         #{/list}
         
+    </div>
+    <div class="citations">
+    	<h3>
+    		${_articleRecord.references.size() ?: 'no'}
+    		citation${_articleRecord.references.size().pluralize()}
+    		<span id="expand-citations-link">
+    			<a href="#" id="expand-citations"><span>+</span></a>
+			</span>
+    	</h3>
+    	
+    	<div id="citations-to-expand">
+	    	#{list items:_articleRecord.getOrderedCitations(), as:'reference'}
+	    		<div class="citation">
+	    			<div class="citation-content">
+	    				<span class="citation-identification">
+	    					[${reference.bibNum}]: ${reference.reference}
+	    				</span>
+	    				<span class="citation-string">
+	    					${reference.citation}
+	    				</span>
+	    			</div>
+	    		</div>
+	    	#{/list}
+    	</div>
     </div>
 #{/else}
