@@ -261,6 +261,101 @@ h3 span {
 	left: -4px;
 }
 
+/** Citations **/
+
+.citations {
+    margin-bottom: 30px;
+}
+
+h3 {
+    color: #869AB1;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+h3 span {
+    font-size: 80%;
+    font-weight: normal;
+}
+
+.citation {
+    width: 100%;
+    clear: both;
+}
+
+.citation .citation-metadata {
+    color: #869AB1;
+    display: block;
+    font-size: 50%;
+    display: block;
+    float: left;
+    width: 550px;
+    text-align: left;
+}
+
+.citation .citation-string {
+}
+
+.citation .citation-identification {
+    font-size: 100%;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.citation .citation-content {
+    position: relative;
+    background: #E4EAFF;
+    color: #242C58;
+    font-size: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+.citation .citation-content a {
+	float: right;	
+}
+
+.citation .about {
+    text-indent: -999em;
+    display: block;
+    width: 0; 
+    height: 0; 
+	border-top: 10px solid transparent; 
+	border-bottom: 10px solid transparent;
+	border-right: 10px solid #E4EAFF;
+	border-left: 0;
+	position: absolute;
+	top: 4px;
+	left: -4px;
+}
+
+#expand-citations-link a {
+    background: #C88116;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    padding: 2px 5px;
+    font-size: 70%;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    -webkit-box-shadow: 1px 1px 2px rgba(0,0,0,.3);
+    vertical-align: middle;
+}
+
+#expand-citations-link a span {
+    background: #7D510E;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    padding: 0 5px 2px 5px;
+    position: relative;
+    top: -1px;
+}
+
 /** Form **/
 
 form {

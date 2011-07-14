@@ -1,34 +1,43 @@
-03 Jul 2011 19:49:28,087 INFO  ~ Starting /home/nmld/palm
-03 Jul 2011 19:49:28,092 WARN  ~ Declaring modules in application.conf is deprecated. Use dependencies.yml instead (module.crud)
-03 Jul 2011 19:49:28,093 INFO  ~ Module crud is available (/home/nmld/play-1.2/modules/crud)
-03 Jul 2011 19:49:28,093 WARN  ~ Declaring modules in application.conf is deprecated. Use dependencies.yml instead (module.secure)
-03 Jul 2011 19:49:28,093 INFO  ~ Module secure is available (/home/nmld/play-1.2/modules/secure)
-03 Jul 2011 19:49:28,093 WARN  ~ Declaring modules in application.conf is deprecated. Use dependencies.yml instead (module.cobertura)
-03 Jul 2011 19:49:28,094 INFO  ~ Module cobertura is available (/home/nmld/play-1.2/modules/cobertura-2.1)
-03 Jul 2011 19:49:29,044 WARN  ~ Actually play.tmp is set to null. Set it to play.tmp=none
-03 Jul 2011 19:49:29,051 WARN  ~ You're running Play! in DEV mode
-03 Jul 2011 19:49:29,210 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
-03 Jul 2011 19:50:26,926 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0
-03 Jul 2011 19:50:28,574 INFO  ~ Application 'Portable Article Library Manager' is now started !
-03 Jul 2011 19:51:01,174 INFO  ~ Cobertura plugin: generating test coverage report
-03 Jul 2011 19:51:03,319 WARN  ~ JavaNCSS got an error while parsing the java file /home/nmld/play-1.2/modules/crud/app/controllers/CRUD.java
-ParseException in STDIN
-Last useful checkpoint: "controllers.CRUD"
-Encountered "interface" at line 170, column 13.
-Was expecting one of:
-    "assert" ...
-    "enum" ...
-    <IDENTIFIER> ...
-    
+14 Jul 2011 16:23:06,920 INFO  ~ Starting /home/nmld/palm
+14 Jul 2011 16:23:06,925 WARN  ~ Declaring modules in application.conf is deprecated. Use dependencies.yml instead (module.crud)
+14 Jul 2011 16:23:06,926 INFO  ~ Module crud is available (/home/nmld/play-1.2/modules/crud)
+14 Jul 2011 16:23:06,926 WARN  ~ Declaring modules in application.conf is deprecated. Use dependencies.yml instead (module.secure)
+14 Jul 2011 16:23:06,926 INFO  ~ Module secure is available (/home/nmld/play-1.2/modules/secure)
+14 Jul 2011 16:23:06,926 WARN  ~ Declaring modules in application.conf is deprecated. Use dependencies.yml instead (module.cobertura)
+14 Jul 2011 16:23:06,953 INFO  ~ Module cobertura is available (/home/nmld/play-1.2/modules/cobertura-2.1)
+14 Jul 2011 16:23:08,483 WARN  ~ Actually play.tmp is set to null. Set it to play.tmp=none
+14 Jul 2011 16:23:08,515 WARN  ~ You're running Play! in DEV mode
+14 Jul 2011 16:23:08,723 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+14 Jul 2011 16:23:21,015 ERROR ~ 
 
-03 Jul 2011 19:51:03,791 WARN  ~ JavaNCSS got an error while parsing the java file /home/nmld/play-1.2/modules/crud/app/controllers/CRUD.java
-ParseException in STDIN
-Last useful checkpoint: "controllers.CRUD"
-Encountered "interface" at line 170, column 13.
-Was expecting one of:
-    "assert" ...
-    "enum" ...
-    <IDENTIFIER> ...
-    
+@674jn0ocn
+Internal Server Error (500) for request GET /
 
-03 Jul 2011 19:51:04,037 INFO  ~ Test coverage report has been generated: file:/home/nmld/palm/test-result/code-coverage/index.html
+Compilation error (In /test/BasicTest.java around line 47)
+The file /test/BasicTest.java could not be compiled. Error raised is : The constructor ArticleRecord(String, User) is undefined
+
+play.exceptions.CompilationException: The constructor ArticleRecord(String, User) is undefined
+	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
+	at org.eclipse.jdt.internal.compiler.Compiler.handleInternalException(Compiler.java:672)
+	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:516)
+	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:278)
+	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:249)
+	at play.classloading.ApplicationClassloader.loadApplicationClass(ApplicationClassloader.java:150)
+	at play.classloading.ApplicationClassloader.loadClass(ApplicationClassloader.java:84)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:247)
+	at play.classloading.ApplicationClasses.getAssignableClasses(ApplicationClasses.java:61)
+	at play.classloading.ApplicationClassloader.getAssignableClasses(ApplicationClassloader.java:435)
+	at {module:crud}/app/views/tags/crud/types.tag.(line:3)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:213)
+	at play.templates.GroovyTemplate$ExecutableTemplate.invokeTag(GroovyTemplate.java:346)
+	at {module:crud}/conf/routes.(line:4)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:213)
+	at play.templates.Template.render(Template.java:26)
+	at play.mvc.Router.parse(Router.java:162)
+	at play.mvc.Router.parse(Router.java:190)
+	at play.mvc.Router.parse(Router.java:164)
+	at play.mvc.Router.load(Router.java:50)
+	at play.mvc.Router.detectChanges(Router.java:219)
+	at Invocation.HTTP Request(Play!)
+14 Jul 2011 16:23:43,195 INFO  ~ Cobertura plugin: generating test coverage report
+14 Jul 2011 16:23:45,276 INFO  ~ Test coverage report has been generated: file:/home/nmld/palm/test-result/code-coverage/index.html

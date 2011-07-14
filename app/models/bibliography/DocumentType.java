@@ -44,15 +44,15 @@ public class DocumentType extends Model {
 	}
 
 	public boolean isArticleType() {
-		return this.type == ARTICLE_TYPE;
+		return this.type.equals(ARTICLE_TYPE);
 	}
 
 	public boolean isNotesType() {
-		return this.type == NOTES_TYPE;
+		return this.type.equals(NOTES_TYPE);
 	}
 
 	public boolean isOtherType() {
-		return this.type == OTHER_TYPE;
+		return this.type.equals(OTHER_TYPE);
 	}
 
 	@Override

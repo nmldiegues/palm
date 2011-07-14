@@ -2,9 +2,12 @@ package models.bibliography;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -17,6 +20,10 @@ import javax.persistence.OneToMany;
 import models.User;
 import play.data.validation.Required;
 import play.db.jpa.Model;
+
+import com.citext.pdf.BibUtils;
+import com.citext.pdf.CitationMetadata;
+import com.citext.pdf.CitationParser;
 
 @Entity
 public class ArticleRecord extends Model {
@@ -41,6 +48,9 @@ public class ArticleRecord extends Model {
 	@OneToMany(mappedBy = "record", cascade = CascadeType.ALL)
 	public List<Document> documents;
 
+	@OneToMany(mappedBy = "recordThatReferences", cascade = CascadeType.ALL)
+	public List<Citation> references;
+
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	public Set<Tag> tags;
 
@@ -60,12 +70,31 @@ public class ArticleRecord extends Model {
 	}
 
 	public ArticleRecord addDocument(String identification, DocumentType type, File content) {
+		List<CitationMetadata> metadata = null;
+
 		try {
-			this.documents.add(Document.createDocument(identification, content, this, type));
+			Document newDoc = Document.createDocument(identification, content, this, type);
+			this.documents.add(newDoc);
+			if (type.isArticleType()) {
+				CitationParser parser = new CitationParser(BibUtils.readPdf(content));
+				metadata = parser.fetchAllCitations();
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			// FIXME failure message
+			return this;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return this;
 		}
+
+		for (CitationMetadata citMeta : metadata) {
+			for (Map.Entry<Integer, String> entry : citMeta.getReferences().entrySet()) {
+				Citation newCit = new Citation(entry.getKey(), entry.getValue(), citMeta.getCitation(), this);
+				newCit.save();
+				this.references.add(newCit);
+			}
+		}
+
 		return this;
 	}
 
@@ -105,6 +134,12 @@ public class ArticleRecord extends Model {
 	public ArticleRecord addAuthorship(String author) {
 		authors.add(Author.findOrCreateByNames(author));
 		return this;
+	}
+
+	public List<Citation> getOrderedCitations() {
+		List<Citation> result = new ArrayList<Citation>(this.references);
+		Collections.sort(result);
+		return result;
 	}
 
 	@Override

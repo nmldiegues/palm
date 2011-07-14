@@ -13,95 +13,11 @@ Manager(manager):
 Submitter(submitter):
 
 
-User(bob):
-    email:          bob@gmail.com
+User(nmld):
+    email:          nmld@ist.utl.pt
     password:       Qdgjq5YO9JlzzmKDd9e/XQ==
-    firstName:      Bob
-    lastName:       Spark
+    firstName:      Nuno
+    lastName:       Diegues
     roles:
                     - manager
                     - submitter
-
-User(jeff):
-    email:          jeff@gmail.com
-    password:       Qdgjq5YO9JlzzmKDd9e/XQ==
-    firstName:      Jeff
-    lastName:       Marcus
-    roles:
-                    - submitter
-
-bibliography.Tag(play):
-    name:           Play
- 
-bibliography.Tag(architecture):
-    name:           Architecture
- 
-bibliography.Tag(test):
-    name:           Test
- 
-bibliography.Tag(mvc):
-    name:           MVC
-
-bibliography.ArticleRecord(firstBobRecord):
-    name:           About the model layer
-    creationDate:   2009-06-14
-    author:         bob
-    tags:           
-                    - play
-                    - architecture
-                    - mvc
-
-bibliography.ArticleRecord(secondBobRecord):
-    name:           Just a test of YABE
-    creationDate:   2009-03-25
-    author:         bob
-    tags:           
-                    - mvc
-
-bibliography.ArticleRecord(jeffRecord):
-    name:           The MVC application
-    creationDate:   2009-06-06
-    author:         jeff
-
-bibliography.DocumentType(article):
-    type:               0
-
-bibliography.DocumentType(notes):
-    type:               1
-
-bibliography.Document(doc1):
-    identification:     My First Notes
-    content:            >
-                        The model has a central position in a Play! application. It is the domain-specific 
-                        representation of the information on which the application operates.
-                        
-                        Martin fowler defines it as :
-                            
-                        Responsible for representing concepts of the business, information about the 
-                        business situation, and business rules. State that reflects the business situation 
-                        is controlled and used here, even though the technical details of storing it are 
-                        delegated to the infrastructure. This layer is the heart of business software.
-    creationDate:       2009-06-14
-    record:             firstBobRecord
-    type:               notes
-
-bibliography.Document(doc2):
-    identification:     The actual paper
-    content:            >
-                        A Play! application follows the MVC architectural pattern as applied to the 
-                        architecture of the Web.
-                    
-                        This pattern splits the application into separate layers: the Presentation 
-                        layer and the Model layer. The Presentation layer is further split into a 
-                        View and a Controller layer.
-    creationDate:       2009-06-15
-    record:             firstBobRecord
-    type:               article
-    
-bibliography.Document(doc3):
-    identification:     Moar notes
-    content:            >
-                        A Play! notes
-    creationDate:       2009-04-20
-    record:             secondBobRecord
-    type:               notes
