@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +78,8 @@ public class Application extends Controller {
 	public static void downloadDocument(Long id) {
 		final Document document = Document.findById(id);
 		notFoundIfNull(document);
-		response.setContentTypeIfNotSet(document.content.type());
-		renderBinary(document.content.get(), document.identification);
+		response.setContentTypeIfNotSet(document.mimeType);
+		renderBinary(new ByteArrayInputStream(document.content), document.fileName);
 	}
 
 	public static void newArticleRecord() {
