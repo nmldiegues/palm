@@ -48,7 +48,6 @@ public class User extends Model {
 	}
 
 	public static User connect(String email, String password) {
-		System.out.println(Crypto.passwordHash(password));
 		return find("byEmailAndPassword", email, Crypto.passwordHash(password)).first();
 	}
 

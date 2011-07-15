@@ -1,7 +1,6 @@
 package models.bibliography;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,9 +78,6 @@ public class ArticleRecord extends Model {
 				CitationParser parser = new CitationParser(BibUtils.readPdf(content));
 				metadata = parser.fetchAllCitations();
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return this;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return this;
