@@ -2,3 +2,4 @@
 tmp/*
 !.gitignore
 eclipse
+conf/application.conf
