@@ -18,6 +18,19 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 
+/*
+ * TODO support adding tags
+ * TODO cloud tag
+ * TODO show articles with some tag
+ * TODO find articles by tag(s), authors
+ * TODO find articles by author
+ * TODO parse authors and paper from citation, link to them
+ * TODO icon for notes ok/missing
+ * TODO favicon different from play's
+ * TODO remove last comma from authors' list in article authorship
+ * TODO space between article records
+ */
+
 @With(Secure.class)
 public class Application extends Controller {
 

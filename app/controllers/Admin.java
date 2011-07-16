@@ -52,7 +52,7 @@ public class Admin extends Controller {
 			articleRecord.tags.clear();
 		}
 		// Set authors list
-		for (String author : authors.split("\\s+")) {
+		for (String author : authors.split(";")) {
 			if (author.trim().length() > 0) {
 				articleRecord.addAuthorship(author);
 			}
