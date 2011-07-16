@@ -11,6 +11,9 @@
 <p style="border-bottom: 1px dotted #e5dabf" />
  
 #{if records.size()}
+	<h3> 
+        ${records.size()} article${records.size().pluralize()}
+	</h3>
 	#{list items:records, as:'record'}
 	    #{display articleRecord:record, as:'home' /}
 	#{/list}
