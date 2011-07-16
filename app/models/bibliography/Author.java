@@ -30,4 +30,9 @@ public class Author extends Model {
 		}
 		return author;
 	}
+
+	@Override
+	public String toString() {
+		return this.name;
+	}
 }
