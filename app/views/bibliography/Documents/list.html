@@ -11,9 +11,7 @@
 	<div id="crudListTable">
 		#{crud.table fields:['identification', 'content', 'record']}
 		 #{crud.custom 'content'}
-		  <a href="#">
-		   ${object.content.length() > 50 ? object.content[0..50] + '…' : object.content}
-		  </a>
+
 		 #{/crud.custom}
 		#{/crud.table}
 	</div>

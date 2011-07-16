@@ -96,7 +96,7 @@ public class Application extends Controller {
 		}
 
 		List<Author> articleAuthors = new ArrayList<Author>();
-		for (String author : authors.split("\\s+")) {
+		for (String author : authors.split(";")) {
 			if (author.trim().length() > 0) {
 				articleAuthors.add(Author.findOrCreateByNames(author));
 			}
