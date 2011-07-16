@@ -41,7 +41,7 @@ public class Application extends Controller {
 	}
 
 	public static void index() {
-		List<ArticleRecord> records = ArticleRecord.find("order by creationDate desc").fetch(10);
+		List<ArticleRecord> records = ArticleRecord.find("order by year desc").fetch();
 		render(records);
 	}
 
