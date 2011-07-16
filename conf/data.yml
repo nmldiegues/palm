@@ -7,17 +7,3 @@
 #   fullname: Bob
 
 # Test data
-
-Manager(manager):
-
-Submitter(submitter):
-
-
-User(nmld):
-    email:          nmld@ist.utl.pt
-    password:       Qdgjq5YO9JlzzmKDd9e/XQ==
-    firstName:      Nuno
-    lastName:       Diegues
-    roles:
-                    - manager
-                    - submitter
