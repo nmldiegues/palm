@@ -9,6 +9,7 @@ import models.bibliography.ArticleRecord;
 import models.bibliography.Author;
 import models.bibliography.Document;
 import models.bibliography.DocumentType;
+import models.bibliography.Tag;
 import play.Play;
 import play.cache.Cache;
 import play.data.validation.Required;
@@ -19,10 +20,8 @@ import play.mvc.Controller;
 import play.mvc.With;
 
 /*
- * TODO support adding tags
+ * TODO display tags in display of articleRecord in same way as show.html from bib/ArticleRecords used in CRUD
  * TODO cloud tag
- * TODO show articles with some tag
- * TODO find articles by tag(s), authors
  * TODO find articles by author
  * TODO parse authors and paper from citation, link to them
  * TODO icon for notes ok/missing
@@ -127,4 +126,27 @@ public class Application extends Controller {
 		index();
 	}
 
+	public static void prepareToTag(Long id) {
+		ArticleRecord articleRecord = ArticleRecord.findById(id);
+		List<Tag> possibleTags = Tag.findAll();
+		render("Application/addTags.html", articleRecord, possibleTags);
+	}
+
+	public static void addTags(Long id, String[] existentTags, String tags) {
+		ArticleRecord articleRecord = ArticleRecord.findById(id);
+		if (existentTags != null) {
+			for (String tag : existentTags) {
+				articleRecord.tagItWith(tag);
+			}
+		}
+		for (String tag : tags.split(";")) {
+			if (tag.trim().length() > 0) {
+				articleRecord.tagItWith(tag);
+			}
+		}
+
+		articleRecord.save();
+
+		show(id);
+	}
 }

@@ -1,0 +1,29 @@
+#{extends 'main.html' /}
+#{set title:'Add Tags to an Article' /}
+
+<h3>Add some Tags</h3>
+
+<form action="@{Application.addTags(articleRecord.id)}" method="POST" >
+ 
+    #{ifErrors}
+        <p class="error">
+            Please correct these errors.
+        </p>
+    #{/ifErrors}
+
+	<p>
+		#{list items:possibleTags, as:'possibleTag'}
+			<input type="checkbox" name="existentTags" value="${possibleTag}"/>${possibleTag} 
+		#{/list}
+	</p>
+
+    <p>
+        <label>Enter some tags:</label>
+        <input type="text" size="50" name="tags" value="${articleRecord?.tags?.join(' ')}" />
+    </p>
+    
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+
+</form>     
