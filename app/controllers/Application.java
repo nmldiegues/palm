@@ -27,8 +27,10 @@ import play.mvc.With;
  * TODO parse authors and paper from citation, link to them
  * TODO icon for notes ok/missing
  * TODO favicon different from play's
- * TODO remove last comma from authors' list in article authorship
  * TODO space between article records
+ * TODO move the "PALM" big header into the login screen.
+ * TODO if new features come up, create small menu "taggish" buttons at the top instead of the big header
+ * TODO add new models to CRUD
  */
 
 @With(Secure.class)
@@ -124,4 +126,5 @@ public class Application extends Controller {
 		// FIXME jump to the article record
 		index();
 	}
+
 }

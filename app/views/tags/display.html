@@ -16,7 +16,6 @@
 	});  
 </script>
 
-#{if _as != 'full'}
 <div class="articleRecord">
     <h2 class="articleRecord-name">
     	<a href="@{Application.show(_articleRecord.id)}">${_articleRecord.name}</a>
@@ -27,7 +26,7 @@
         </span>
         <span class="articleRecord-submitter"> 
 	        #{list items:_articleRecord.authors, as:'author'}
-	       		${author.name}, 
+	       		${author.name}${author_isLast ? '' : ', '} 
 	        #{/list}
         </span>
         <span class="articleRecord-documents">
@@ -42,44 +41,12 @@
 		            <a href="@{Application.listTagged(tag.name)}">${tag}</a>${tag_isLast ? '' : ', '}
 		        #{/list}
 		    </span>
-		#{/if}		
+		#{/if}
+		&nbsp;|&nbsp;<span class="articleRecord-creationDate">${_articleRecord.creationDate.format('dd MMM yy')}</span>	
     </div>
 </div>
-#{/if}
 
-#{else}
-	<div class="articleRecord">
-	    <h2 class="articleRecord-name">
-	    	<a href="@{Application.show(_articleRecord.id)}">${_articleRecord.name}</a>
-	    </h2>
-	    <div class="articleRecord-metadata">
-	        <span class="articleRecord-submitter">
-	        	${_articleRecord.year} - 
-	        </span>
-	        <span class="articleRecord-submitter"> 
-		        #{list items:_articleRecord.authors, as:'author'}
-		       		${author.name}, 
-		        #{/list}
-	        </span>
-	        <span class="articleRecord-documents">
-	            &nbsp;|&nbsp; ${_articleRecord.documents.size() ?: 'no'} 
-	            document${_articleRecord.documents.size().pluralize()}
-	            &nbsp;|&nbsp; ${_articleRecord.hasArticle() ? 'ok' : 'missing'}
-	        </span>
-			#{if _articleRecord.tags}
-			    <span class="articleRecord-tags">
-			        - Tagged 
-			        #{list items:_articleRecord.tags, as:'tag'}
-			            <a href="@{Application.listTagged(tag.name)}">${tag}</a>${tag_isLast ? '' : ', '}
-			        #{/list}
-			    </span>
-			#{/if}		
-	    	<p>
-		    	<span class="articleRecord-submitter">by ${_articleRecord.submitter.firstName}</span>,
-				<span class="articleRecord-creationDate">${_articleRecord.creationDate.format('dd MMM yy')}</span>
-			</p>
-	    </div>
-	</div>
+#{if _as == 'full'}
     <div class="documents">
         <h3>
             ${_articleRecord.documents.size() ?: 'no'} 
@@ -125,4 +92,4 @@
 	    	#{/list}
     	</div>
     </div>
-#{/else}
+#{/if}
