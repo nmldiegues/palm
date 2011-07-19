@@ -21,8 +21,6 @@ import play.mvc.Controller;
 import play.mvc.With;
 
 /*
- * TODO display tags in display of articleRecord in same way as show.html from bib/ArticleRecords used in CRUD
- * TODO cloud tag
  * TODO find articles by author
  * TODO parse authors and paper from citation, link to them
  * TODO icon for notes ok/missing
@@ -155,11 +153,17 @@ public class Application extends Controller {
 
 	public static void prepareCloudTag() {
 		List<Map> tags = Tag.getCloud();
-		Long totalCount = 0L;
+		Long tmp = 0L;
 		for (Map map : tags) {
-			totalCount += (Long) map.get("pound");
+			tmp += (Long) map.get("pound");
 		}
-		render("Application/cloudTag.html", tags, totalCount);
+		Double totalCount = 0.0 + tmp;
+		List<Tag> tmp2 = Tag.findAll();
+		Tag tagExample = null;
+		if (tmp2.size() > 0) {
+			tagExample = tmp2.get(0);
+		}
+		render("Application/cloudTag.html", tags, totalCount, tagExample);
 	}
 
 }

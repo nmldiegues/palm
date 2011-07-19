@@ -5,8 +5,8 @@
 
 <div class="tags-list">
     #{list items:tags, as:'tag'}
-    	<span class="tag">
-    		<a href="@{Application.listTagged(tag.name)}">${tag}</a>
+    	<span class="tag-s${tagExample.calculateWeight(tag.get("pound"), totalCount)}">
+    		<a href="@{Application.listTagged(tag.get("tag"))}">${tag.get("tag")}</a>
     	</span>
     #{/list}
 </div>
