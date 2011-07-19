@@ -13,13 +13,13 @@
 
 	<p>
 		#{list items:possibleTags, as:'possibleTag'}
-			<input type="checkbox" name="existentTags" value="${possibleTag}"/>${possibleTag} 
+			<input type="checkbox" name="existentTags" value="${possibleTag}" ${articleRecord?.tags?.contains(possibleTag) ? 'checked' : ''}/>${possibleTag} 
 		#{/list}
 	</p>
 
     <p>
         <label>Enter some tags:</label>
-        <input type="text" size="50" name="tags" value="${articleRecord?.tags?.join(' ')}" />
+        <input type="text" size="50" name="tags" />
     </p>
     
     <p>

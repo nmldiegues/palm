@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import models.bibliography.ArticleRecord;
 import models.bibliography.Author;
@@ -30,6 +31,7 @@ import play.mvc.With;
  * TODO move the "PALM" big header into the login screen.
  * TODO if new features come up, create small menu "taggish" buttons at the top instead of the big header
  * TODO add new models to CRUD
+ * TODO for every Article, search in all citations whose reference contains the title of the article
  */
 
 @With(Secure.class)
@@ -134,6 +136,7 @@ public class Application extends Controller {
 
 	public static void addTags(Long id, String[] existentTags, String tags) {
 		ArticleRecord articleRecord = ArticleRecord.findById(id);
+		articleRecord.tags.clear();
 		if (existentTags != null) {
 			for (String tag : existentTags) {
 				articleRecord.tagItWith(tag);
@@ -149,4 +152,14 @@ public class Application extends Controller {
 
 		show(id);
 	}
+
+	public static void prepareCloudTag() {
+		List<Map> tags = Tag.getCloud();
+		Long totalCount = 0L;
+		for (Map map : tags) {
+			totalCount += (Long) map.get("pound");
+		}
+		render("Application/cloudTag.html", tags, totalCount);
+	}
+
 }

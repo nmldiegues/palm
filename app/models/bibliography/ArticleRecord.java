@@ -83,7 +83,7 @@ public class ArticleRecord extends Model {
 			return this;
 		}
 
-		if(type.isArticleType()) {
+		if (type.isArticleType()) {
 			for (CitationMetadata citMeta : metadata) {
 				for (Map.Entry<Integer, String> entry : citMeta.getReferences().entrySet()) {
 					Citation newCit = new Citation(entry.getKey(), entry.getValue(), citMeta.getCitation(), this);

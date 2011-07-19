@@ -42,4 +42,5 @@ public class Tag extends Model implements Comparable<Tag> {
 				.fetch();
 		return result;
 	}
+
 }

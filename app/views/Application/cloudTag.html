@@ -1,0 +1,12 @@
+#{extends 'main.html' /}
+#{set title:'Cloud Tag' /}
+
+<h3>Cloud Tag</h3>
+
+<div class="tags-list">
+    #{list items:tags, as:'tag'}
+    	<span class="tag">
+    		<a href="@{Application.listTagged(tag.name)}">${tag}</a>
+    	</span>
+    #{/list}
+</div>
