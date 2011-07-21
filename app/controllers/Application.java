@@ -201,7 +201,7 @@ public class Application extends Controller {
 		articleRecord.removeDocument(document);
 		articleRecord.save();
 
-		flash.success("The citations have been parsed successfully.");
+		flash.success("The article has been successfully removed.");
 		show(articleId);
 	}
 }

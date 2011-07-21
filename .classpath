@@ -59,7 +59,7 @@
 	<classpathentry kind="lib" path="/home/nmld/play-1.2/framework/lib/jaxen-1.1.jar"/>
 	<classpathentry kind="lib" path="/home/nmld/play-1.2/framework/lib/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="/home/nmld/play-1.2/framework/lib/mail-1.4.3.jar"/>
-	<classpathentry kind="lib" path="lib/citext-0.9.1.jar"/>
+	<classpathentry kind="lib" path="lib/citext-0.9.1.jar" sourcepath="/citext"/>
 	<classpathentry kind="lib" path="lib/itext-xtra-5.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/itextpdf-5.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.0.1.jar"/>
