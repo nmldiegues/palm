@@ -40,7 +40,7 @@ public class Document extends Model {
 	public ArticleRecord record;
 
 	@Required
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	public DocumentType type;
 
 	public Document() {

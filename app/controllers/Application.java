@@ -8,6 +8,7 @@ import java.util.Map;
 
 import models.bibliography.ArticleRecord;
 import models.bibliography.Author;
+import models.bibliography.Citation;
 import models.bibliography.Document;
 import models.bibliography.DocumentType;
 import models.bibliography.Tag;
@@ -61,7 +62,7 @@ public class Application extends Controller {
 	public static void submitDocument(Long recordId,
 			@Required(message = "Identification is required") String identification,
 			@Required(message = "Content is required") File content,
-			@Required(message = "Type is required") String type,
+			@Required(message = "Type is required") String type, String[] parse,
 			@Required(message = "Please type the code") String code, String randomID) {
 
 		ArticleRecord articleRecord = ArticleRecord.findById(recordId);
@@ -72,7 +73,12 @@ public class Application extends Controller {
 			render("Application/show.html", articleRecord, randomID);
 		}
 
-		articleRecord.addDocument(identification, DocumentType.getOrCreate(type), content);
+		Boolean parseCitations = false;
+		if (parse != null) {
+			parseCitations = true;
+		}
+
+		articleRecord.addDocument(identification, DocumentType.getOrCreate(type), content, parseCitations);
 		flash.success("Your document '%s' has been uploaded.", identification);
 		show(recordId);
 	}
@@ -166,4 +172,36 @@ public class Application extends Controller {
 		render("Application/cloudTag.html", tags, totalCount, tagExample);
 	}
 
+	public static void removeCitations(Long articleId) {
+		ArticleRecord articleRecord = ArticleRecord.findById(articleId);
+		for (Citation cit : articleRecord.references) {
+			cit.delete();
+		}
+		articleRecord.references.clear();
+		articleRecord.save();
+		show(articleId);
+	}
+
+	public static void parseCitations(Long articleId, Long documentId) {
+		ArticleRecord articleRecord = ArticleRecord.findById(articleId);
+		Document document = null;
+		for (Document doc : articleRecord.documents) {
+			if (doc.id.equals(documentId)) {
+				document = doc;
+				break;
+			}
+		}
+
+		validation.required(document).message("Invalid document id: " + documentId);
+		validation.equals(articleRecord.references.size(), 0).message("Remove all existing citations first.");
+		if (validation.hasErrors()) {
+			render("Application/show.html", articleRecord);
+		}
+
+		articleRecord.removeDocument(document);
+		articleRecord.save();
+
+		flash.success("The citations have been parsed successfully.");
+		show(articleId);
+	}
 }

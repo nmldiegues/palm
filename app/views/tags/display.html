@@ -16,6 +16,12 @@
 	});  
 </script>
 
+#{ifErrors}
+    <p class="error">
+        ${errors}
+    </p>
+#{/ifErrors}
+
 <div class="articleRecord">
     <h2 class="articleRecord-name">
     	<a href="@{Application.show(_articleRecord.id)}">${_articleRecord.name}</a>
@@ -62,6 +68,8 @@
                     <span class="document-creationDate">
                         ${document.creationDate.format('dd MMM yy')}
                     </span>
+                    
+                   	<a href="@{Application.parseCitations(_articleRecord.id, document.id)}">Remove</a>
                     <a href="@{downloadDocument(document.id)}">Download</a>
                 </div>
             </div>

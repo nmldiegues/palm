@@ -68,22 +68,30 @@ public class ArticleRecord extends Model {
 		this(name, year, submitter, new ArrayList<Author>());
 	}
 
-	public ArticleRecord addDocument(String identification, DocumentType type, File content) {
-		List<CitationMetadata> metadata = null;
+	public ArticleRecord addDocument(String identification, DocumentType type, File content, Boolean parseCitations) {
 
 		try {
 			Document newDoc = Document.createDocument(identification, content, this, type);
 			this.documents.add(newDoc);
-			if (type.isArticleType()) {
-				CitationParser parser = new CitationParser(BibUtils.readPdf(content));
-				metadata = parser.fetchAllCitations();
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			return this;
 		}
 
-		if (type.isArticleType()) {
+		try {
+			parseCitations(type, BibUtils.readPdf(content), parseCitations);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return this;
+	}
+
+	public ArticleRecord parseCitations(DocumentType type, String content, Boolean parseCitations) {
+		if (type.isArticleType() && parseCitations) {
+			List<CitationMetadata> metadata = null;
+			CitationParser parser = new CitationParser(content);
+			metadata = parser.fetchAllCitations();
 			for (CitationMetadata citMeta : metadata) {
 				for (Map.Entry<Integer, String> entry : citMeta.getReferences().entrySet()) {
 					Citation newCit = new Citation(entry.getKey(), entry.getValue(), citMeta.getCitation(), this);
@@ -92,7 +100,12 @@ public class ArticleRecord extends Model {
 				}
 			}
 		}
+		return this;
+	}
 
+	public ArticleRecord removeDocument(Document document) {
+		this.documents.remove(document);
+		document.delete();
 		return this;
 	}
 

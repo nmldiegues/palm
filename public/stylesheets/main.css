@@ -245,6 +245,9 @@ h3 span {
 
 .document .document-content a {
 	float: right;	
+	color: #869AB1;
+	text-decoration: none;
+	margin-left: 10px;
 }
 
 .document .about {
