@@ -68,6 +68,10 @@ public class ArticleRecord extends Model {
 		this(name, year, submitter, new ArrayList<Author>());
 	}
 
+	public String shortName() {
+		return this.name.substring(0, 40);
+	}
+
 	public ArticleRecord addDocument(String identification, DocumentType type, File content, Boolean parseCitations) {
 
 		try {
