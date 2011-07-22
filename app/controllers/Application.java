@@ -22,15 +22,17 @@ import play.mvc.Controller;
 import play.mvc.With;
 
 /*
+ * TODO fix Baek pdf
+ * 
+ * TODO for every Article, search in all citations whose reference contains the title of the article
+ * 
  * TODO find articles by author
  * TODO parse authors and paper from citation, link to them
- * TODO icon for notes ok/missing
  * TODO favicon different from play's
  * TODO space between article records
  * TODO move the "PALM" big header into the login screen.
  * TODO if new features come up, create small menu "taggish" buttons at the top instead of the big header
  * TODO add new models to CRUD
- * TODO for every Article, search in all citations whose reference contains the title of the article
  */
 
 @With(Secure.class)

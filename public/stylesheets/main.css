@@ -243,7 +243,47 @@ h3 span {
     -moz-border-radius: 10px;
 }
 
+.document .document-content-notes {
+    position: relative;
+    background: #E4EAFF;
+    color: #242C58;
+    font-size: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+.document .document-content-article {
+    position: relative;
+    background: #9EE0AF;
+    color: #242C58;
+    font-size: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
 .document .document-content a {
+	float: right;	
+	color: #869AB1;
+	text-decoration: none;
+	margin-left: 10px;
+}
+
+.document .document-content-notes a {
+	float: right;	
+	color: #869AB1;
+	text-decoration: none;
+	margin-left: 10px;
+}
+
+.document .document-content-article a {
 	float: right;	
 	color: #869AB1;
 	text-decoration: none;

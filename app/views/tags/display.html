@@ -38,7 +38,20 @@
         <span class="articleRecord-documents">
             &nbsp;|&nbsp; ${_articleRecord.documents.size() ?: 'no'} 
             document${_articleRecord.documents.size().pluralize()}
-            &nbsp;|&nbsp; ${_articleRecord.hasArticle() ? 'ok' : 'missing'}
+            &nbsp;|&nbsp; 
+            	#{if _articleRecord.hasNotes()}
+            		notes - <img src="/public/images/ok_small.png" alt="ok symbol" width="13" height="13" />
+            	#{/if}
+            	#{else}
+            		notes - <img src="/public/images/no_small.png" alt="ok symbol" width="13" height="13" />
+            	#{/else} 
+           	&nbsp;|&nbsp; 
+           		#{if _articleRecord.hasArticle()}
+           			article - <img src="/public/images/ok_small.png" alt="ok symbol" width="13" height="13" />
+           		#{/if}
+           		#{else}
+					article - <img src="/public/images/no_small.png" alt="ok symbol" width="13" height="13" />           		
+           		#{/else} 
         </span>
 		#{if _articleRecord.tags}
 		    <span class="articleRecord-tags">
@@ -61,7 +74,7 @@
         
         #{list items:_articleRecord.documents, as:'document'}
             <div class="document">
-                <div class="document-content">
+                <div class="document-content-${document.type.isArticleType() ? 'article' : 'notes'}">
                 	<span class="document-identification">
                 		${document.type}: ${document.identification}
                 	</span>

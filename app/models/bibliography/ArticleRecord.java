@@ -137,9 +137,18 @@ public class ArticleRecord extends Model {
 				.bind("tags", tags).bind("size", tags.length).fetch();
 	}
 
+	public boolean hasNotes() {
+		for (Document document : documents) {
+			if (document.type.isNotesType()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean hasArticle() {
 		for (Document document : documents) {
-			if (document.type.type().equals(DocumentType.NOTES_TYPE)) {
+			if (document.type.isArticleType()) {
 				return true;
 			}
 		}
