@@ -113,4 +113,23 @@
 	    	#{/list}
     	</div>
     </div>
+    <div class="citations">
+    	<h3>
+    		${_articleRecord.referencedBy.size() ?: 'no'}
+    		mention${_articleRecord.referencedBy.size().pluralize()}
+    	</h3>
+    	
+    	#{list items:_articleRecord.referencedBy, as:'reference'}
+    		<div class="citation">
+    			<div class="citation-content">
+    				<span class="citation-identification">
+    					${reference.recordThatReferences.name}
+    				</span>
+    				<span class="citation-string">
+    					${reference.citation}
+    				</span>
+    			</div>
+    		</div>
+    	#{/list}
+    </div>
 #{/if}

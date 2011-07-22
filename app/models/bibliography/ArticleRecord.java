@@ -50,6 +50,9 @@ public class ArticleRecord extends Model {
 	@OneToMany(mappedBy = "recordThatReferences", cascade = CascadeType.ALL)
 	public List<Citation> references;
 
+	@OneToMany(mappedBy = "recordReferencedBy", cascade = CascadeType.ALL)
+	public List<Citation> referencedBy;
+
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	public Set<Tag> tags;
 
@@ -62,6 +65,8 @@ public class ArticleRecord extends Model {
 		this.creationDate = new Date();
 		this.documents = new ArrayList<Document>();
 		this.tags = new TreeSet<Tag>();
+		this.references = new ArrayList<Citation>();
+		this.referencedBy = new ArrayList<Citation>();
 	}
 
 	public ArticleRecord(String name, Integer year, User submitter) {
@@ -164,6 +169,17 @@ public class ArticleRecord extends Model {
 		List<Citation> result = new ArrayList<Citation>(this.references);
 		Collections.sort(result);
 		return result;
+	}
+
+	public void findReferencesToMe() {
+		List<Citation> citations = Citation.findAll();
+		for (Citation cit : citations) {
+			if (cit.reference.toLowerCase().contains(this.name.toLowerCase())) {
+				this.referencedBy.add(cit);
+				cit.recordReferencedBy = this;
+				cit.save();
+			}
+		}
 	}
 
 	@Override

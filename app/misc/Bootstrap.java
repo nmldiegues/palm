@@ -13,6 +13,11 @@ public class Bootstrap extends Job {
 		// if (User.count() == 0) {
 		// Fixtures.load("data.yml");
 		// }
+		// List<ArticleRecord> articles = ArticleRecord.findAll();
+		// for (ArticleRecord article : articles) {
+		// article.findReferencesToMe();
+		// article.save();
+		// }
 	}
 
 }

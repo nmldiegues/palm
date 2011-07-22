@@ -24,9 +24,14 @@ public class Citation extends Model implements Comparable<Citation> {
 	@Required
 	public String citation;
 
+	// "Paper that performs the citation"
 	@Required
 	@ManyToOne
 	public ArticleRecord recordThatReferences;
+
+	// "Paper that is referenced in the citation
+	@ManyToOne
+	public ArticleRecord recordReferencedBy;
 
 	public Citation(int bibNum, String reference, String citation, ArticleRecord recordThatReferences) {
 		this.bibNum = bibNum;
