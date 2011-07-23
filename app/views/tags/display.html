@@ -45,7 +45,7 @@
         </span>
         <span class="articleRecord-submitter"> 
 	        #{list items:_articleRecord.authors, as:'author'}
-	       		${author.name}${author_isLast ? '' : ', '} 
+	        	<a href="@{Application.listAuthoredBy(author.name)}">${author.name}</a>${author_isLast ? '' : ', '} 
 	        #{/list}
         </span>
         <span class="articleRecord-documents">

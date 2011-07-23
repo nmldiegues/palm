@@ -145,6 +145,11 @@ public class ArticleRecord extends Model {
 				.bind("tags", tags).bind("size", tags.length).fetch();
 	}
 
+	public static List<ArticleRecord> findAuthoredBy(String author) {
+		return ArticleRecord
+				.find("select distinct p from ArticleRecord p join p.authors as t where t.name = ?", author).fetch();
+	}
+
 	public boolean hasNotes() {
 		for (Document document : documents) {
 			if (document.type.isNotesType()) {

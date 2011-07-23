@@ -25,9 +25,6 @@ import play.mvc.With;
  * TODO fix Baek pdf
  * TODO fix Helper
  * 
- * TODO find articles by author
- * TODO parse authors and paper from citation, link to them
- * TODO favicon different from play's
  * TODO space between article records
  * TODO move the "PALM" big header into the login screen.
  * TODO if new features come up, create small menu "taggish" buttons at the top instead of the big header
@@ -101,6 +98,11 @@ public class Application extends Controller {
 	public static void listTagged(String tag) {
 		List<ArticleRecord> articleRecords = ArticleRecord.findTaggedWith(tag);
 		render(tag, articleRecords);
+	}
+
+	public static void listAuthoredBy(String author) {
+		List<ArticleRecord> articleRecords = ArticleRecord.findAuthoredBy(author);
+		render(author, articleRecords);
 	}
 
 	public static void downloadDocument(Long id) {

@@ -21,6 +21,8 @@ GET     /captcha                                Application.captcha
 
 GET     /articles/{tag}		                    Application.listTagged
 
+GET     /articles/authorship/{author}		    Application.listAuthoredBy
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
