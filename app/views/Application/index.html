@@ -1,23 +1,97 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
  
+<style>
+	#hidden-box .filterform {
+	  width:570px;
+	  font-size:12px;
+	  display:block;
+	  position: relative;
+	  top: 10px;
+	  padding: 10px;
+    background: none;
+    background: none;
+    -webkit-border-radius: none;
+    -moz-border-radius: none;
+	}
+	.filterform input {
+	  -moz-border-radius:5px;
+	  border-radius:5px;
+	  -webkit-border-radius:5px;
+	  width:30%;
+	  text-align: right;
+	}
+</style>
+ 
+<script type="text/javascript">
+	(function ($) {
+	  // custom css expression for a case-insensitive contains()
+	  jQuery.expr[':'].Contains = function(a,i,m){
+	      return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
+	  };
+
+
+	  function listFilter(header, list) { // header is any element, list is an unordered list
+	    // create and add the filter form to the header
+	    var form = $("<form>").attr({"class":"filterform","action":"#"}),
+	        input = $("<input>").attr({"class":"filterinput","type":"text","value":"Search"});
+	    $(form).append(input).appendTo(header);
+
+	    $(input)
+	      .change( function () {
+	        var filter = $(this).val();
+	        if(filter) {
+	          // this finds all links in a list that contain the input,
+	          // and hide the ones not containing the input while showing the ones that do
+	          $(list).find(".articleRecord:not(:Contains(" + filter + "))").slideUp();
+	          $(list).find(".articleRecord:Contains(" + filter + ")").slideDown();
+	        } else {
+	          $(list).find("div").slideDown();
+	        }
+	        return false;
+	      })
+	    .keyup( function () {
+	        // fire the above change event after every letter
+	        $(this).change();
+	    });
+	  }
+
+
+	  //ondomready
+	  $(function () {
+	    listFilter($("#hidden-box"), $("#list"));
+	  });
+	}(jQuery));
+</script>
+ 
 #{if flash.success}
     <p class="success">${flash.success}</p>
 #{/if}
 
-<div id="newArticleRecord" style="border-top: 0px">
+<table>
+<tr>
+<td><div id="newArticleRecord" style="border-top: 0px">
     <a href="@{Application.newArticleRecord()}"><span>+</span> new article record</a>
     <a href="@{Application.prepareCloudTag()}"><span>+</span>&nbsp;cloud tag</a>
+    
 </div>
+</td>
+<td>
+	<div align="right" id="hidden-box"></div>
+</td>
+</tr>
+</table>
 <p style="border-bottom: 1px dotted #e5dabf" />
- 
+
 #{if records.size()}
 	<h3> 
         ${records.size()} article${records.size().pluralize()}
 	</h3>
-	#{list items:records, as:'record'}
-	    #{display articleRecord:record, as:'home' /}
-	#{/list}
+	<div id="list">
+		#{list items:records, as:'record'}
+		    #{display articleRecord:record, as:'home' /}
+		#{/list}
+	</div>
 #{/if}
     
 #{else}
