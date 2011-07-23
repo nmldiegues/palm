@@ -5,14 +5,14 @@
     #{if articleRecord.previous()}
         <li id="previous">
             <a href="@{Application.show(articleRecord.previous().id)}">
-                ${articleRecord.previous().name}
+                ${articleRecord.previous().shortName()}
             </a>
         </li>
     #{/if}
     #{if articleRecord.next()}
         <li id="next">
             <a href="@{Application.show(articleRecord.next().id)}">
-                ${articleRecord.next().name}
+                ${articleRecord.next().shortName()}
             </a>
         </li>
     #{/if}

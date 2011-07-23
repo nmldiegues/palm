@@ -13,6 +13,19 @@
 	    	event.preventDefault();  
 	    	$("#citations-to-expand").slideUp();  
 		});  
+	});
+	$(document).ready(function() {
+    	$("#mentions-to-expand").slideUp();
+	});
+	$(function(){  
+	    $("#expand-mentions").click(function(event) {  
+	    	event.preventDefault();  
+	    	$("#mentions-to-expand").slideToggle();
+	    });  
+		$("#mentions-to-expand a").click(function(event) {  
+	    	event.preventDefault();  
+	    	$("#mentions-to-expand").slideUp();  
+		});  
 	});  
 </script>
 
@@ -82,7 +95,7 @@
                         ${document.creationDate.format('dd MMM yy')}
                     </span>
                     
-                   	<a href="@{Application.parseCitations(_articleRecord.id, document.id)}">Remove</a>
+                   	<a href="@{Application.removeDocument(_articleRecord.id, document.id)}">Remove</a>
                     <a href="@{downloadDocument(document.id)}">Download</a>
                 </div>
             </div>
@@ -117,19 +130,24 @@
     	<h3>
     		${_articleRecord.referencedBy.size() ?: 'no'}
     		mention${_articleRecord.referencedBy.size().pluralize()}
+    		<span id="expand-mentions-link">
+    			<a href="#" id="expand-mentions"><span>+</span></a>
+			</span>
     	</h3>
     	
-    	#{list items:_articleRecord.referencedBy, as:'reference'}
-    		<div class="citation">
-    			<div class="citation-content">
-    				<span class="citation-identification">
-    					${reference.recordThatReferences.name}
-    				</span>
-    				<span class="citation-string">
-    					${reference.citation}
-    				</span>
-    			</div>
-    		</div>
-    	#{/list}
+    	<div id="mentions-to-expand">
+	    	#{list items:_articleRecord.referencedBy, as:'reference'}
+	    		<div class="citation">
+	    			<div class="citation-content">
+	    				<span class="citation-identification">
+	    					${reference.recordThatReferences.name}
+	    				</span>
+	    				<span class="citation-string">
+	    					${reference.citation}
+	    				</span>
+	    			</div>
+	    		</div>
+	    	#{/list}
+    	</div>
     </div>
 #{/if}

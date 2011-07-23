@@ -74,7 +74,10 @@ public class ArticleRecord extends Model {
 	}
 
 	public String shortName() {
-		return this.name.substring(0, 40);
+		if (this.name.length() > 60) {
+			return this.name.substring(0, 60) + "(...)";
+		}
+		return this.name;
 	}
 
 	public ArticleRecord addDocument(String identification, DocumentType type, File content, Boolean parseCitations) {
@@ -175,9 +178,18 @@ public class ArticleRecord extends Model {
 		List<Citation> citations = Citation.findAll();
 		for (Citation cit : citations) {
 			if (cit.reference.toLowerCase().contains(this.name.toLowerCase())) {
-				this.referencedBy.add(cit);
-				cit.recordReferencedBy = this;
-				cit.save();
+				boolean alreadyExists = false;
+				for (Citation alreadyHave : this.referencedBy) {
+					if (alreadyHave.id.equals(cit.id) && cit.recordReferencedBy == this) {
+						alreadyExists = true;
+						break;
+					}
+				}
+				if (!alreadyExists) {
+					this.referencedBy.add(cit);
+					cit.recordReferencedBy = this;
+					cit.save();
+				}
 			}
 		}
 	}

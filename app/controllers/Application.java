@@ -23,8 +23,7 @@ import play.mvc.With;
 
 /*
  * TODO fix Baek pdf
- * 
- * TODO for every Article, search in all citations whose reference contains the title of the article
+ * TODO fix Helper
  * 
  * TODO find articles by author
  * TODO parse authors and paper from citation, link to them
@@ -81,6 +80,13 @@ public class Application extends Controller {
 		}
 
 		articleRecord.addDocument(identification, DocumentType.getOrCreate(type), content, parseCitations);
+
+		List<ArticleRecord> articles = ArticleRecord.findAll();
+		for (ArticleRecord article : articles) {
+			article.findReferencesToMe();
+			article.save();
+		}
+
 		flash.success("Your document '%s' has been uploaded.", identification);
 		show(recordId);
 	}
@@ -177,6 +183,7 @@ public class Application extends Controller {
 	public static void removeCitations(Long articleId) {
 		ArticleRecord articleRecord = ArticleRecord.findById(articleId);
 		for (Citation cit : articleRecord.references) {
+			cit.recordReferencedBy.referencedBy.remove(cit);
 			cit.delete();
 		}
 		articleRecord.references.clear();
@@ -184,7 +191,7 @@ public class Application extends Controller {
 		show(articleId);
 	}
 
-	public static void parseCitations(Long articleId, Long documentId) {
+	public static void removeDocument(Long articleId, Long documentId) {
 		ArticleRecord articleRecord = ArticleRecord.findById(articleId);
 		Document document = null;
 		for (Document doc : articleRecord.documents) {
