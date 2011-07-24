@@ -22,7 +22,6 @@ import play.mvc.Controller;
 import play.mvc.With;
 
 /*
- * TODO fix Baek pdf
  * TODO fix Helper
  * 
  * TODO space between article records
