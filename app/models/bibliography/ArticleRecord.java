@@ -130,13 +130,13 @@ public class ArticleRecord extends Model {
 	}
 
 	public ArticleRecord tagItWith(String name) {
-		tags.add(Tag.findOrCreateByName(name));
+		tags.add(Tag.findOrCreateByName(name.trim()));
 		return this;
 	}
 
 	public static List<ArticleRecord> findTaggedWith(String tag) {
-		return ArticleRecord.find("select distinct p from ArticleRecord p join p.tags as t where t.name = ?", tag)
-				.fetch();
+		return ArticleRecord.find("select distinct p from ArticleRecord p join p.tags as t where t.name = ?",
+				tag.trim()).fetch();
 	}
 
 	public static List<ArticleRecord> findTaggedWith(String... tags) {
@@ -146,8 +146,8 @@ public class ArticleRecord extends Model {
 	}
 
 	public static List<ArticleRecord> findAuthoredBy(String author) {
-		return ArticleRecord
-				.find("select distinct p from ArticleRecord p join p.authors as t where t.name = ?", author).fetch();
+		return ArticleRecord.find("select distinct p from ArticleRecord p join p.authors as t where t.name = ?",
+				author.trim()).fetch();
 	}
 
 	public boolean hasNotes() {
