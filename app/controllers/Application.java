@@ -22,8 +22,6 @@ import play.mvc.Controller;
 import play.mvc.With;
 
 /*
- * TODO fix Helper
- * 
  * TODO space between article records
  * TODO move the "PALM" big header into the login screen.
  * TODO if new features come up, create small menu "taggish" buttons at the top instead of the big header
