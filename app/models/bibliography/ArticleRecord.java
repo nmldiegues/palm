@@ -90,10 +90,12 @@ public class ArticleRecord extends Model {
 			return this;
 		}
 
-		try {
-			parseCitations(type, BibUtils.readPdf(content), parseCitations);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (parseCitations) {
+			try {
+				parseCitations(type, BibUtils.readPdf(content), parseCitations);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return this;
