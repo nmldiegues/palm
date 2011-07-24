@@ -124,11 +124,11 @@ public class ArticleRecord extends Model {
 	}
 
 	public ArticleRecord previous() {
-		return ArticleRecord.find("creationDate < ? order by creationDate desc", creationDate).first();
+		return ArticleRecord.find("year < ? order by year desc", year).first();
 	}
 
 	public ArticleRecord next() {
-		return ArticleRecord.find("creationDate > ? order by creationDate asc", creationDate).first();
+		return ArticleRecord.find("year > ? order by year asc", year).first();
 	}
 
 	public ArticleRecord tagItWith(String name) {

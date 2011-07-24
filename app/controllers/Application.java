@@ -26,6 +26,7 @@ import play.mvc.With;
  * TODO move the "PALM" big header into the login screen.
  * TODO if new features come up, create small menu "taggish" buttons at the top instead of the big header
  * TODO add new models to CRUD
+ * TODO update itext when a new version is out. some papers aren't decodable due to internal NPE in itext
  */
 
 @With(Secure.class)
