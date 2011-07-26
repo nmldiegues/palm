@@ -183,7 +183,10 @@ public class Application extends Controller {
 	public static void removeCitations(Long articleId) {
 		ArticleRecord articleRecord = ArticleRecord.findById(articleId);
 		for (Citation cit : articleRecord.references) {
-			cit.recordReferencedBy.referencedBy.remove(cit);
+			ArticleRecord referencedBy = cit.recordReferencedBy;
+			if (referencedBy != null) {
+				referencedBy.referencedBy.remove(cit);
+			}
 			cit.delete();
 		}
 		articleRecord.references.clear();
