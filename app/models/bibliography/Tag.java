@@ -23,7 +23,6 @@ public class Tag extends Model implements Comparable<Tag> {
 		return name;
 	}
 
-	@Override
 	public int compareTo(Tag otherTag) {
 		return name.compareTo(otherTag.name);
 	}

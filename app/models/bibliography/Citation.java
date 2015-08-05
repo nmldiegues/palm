@@ -40,7 +40,6 @@ public class Citation extends Model implements Comparable<Citation> {
 		this.recordThatReferences = recordThatReferences;
 	}
 
-	@Override
 	public int compareTo(Citation o) {
 		if (this.bibNum < o.bibNum) {
 			return -1;
